@@ -2,6 +2,7 @@ package user
 
 import (
 	"net/http"
+	"net/mail"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yihao03/Aistronaut/m/v2/db"
@@ -15,6 +16,11 @@ func Create(c *gin.Context) {
 
 	if err := c.Bind(&body); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if _, err := mail.ParseAddress(body.Email); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid email format"})
 		return
 	}
 
