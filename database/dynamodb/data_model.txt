@@ -1,0 +1,160 @@
+Table 0: user
+user_id (PK)
+username
+email
+encrypted_password
+first_name
+last_name
+phone_number
+date_of_birth
+passport_number
+nationality
+created_at
+updated_at
+
+Table 1: user_preferences
+preference_id (PK)
+user_id (FK)
+preferred_airline
+preferred_seat_type
+preferred_class
+dietary_restrictions
+accessibility_needs
+budget_range_min
+budget_range_max
+preferred_accommodation_type
+travel_style
+created_at
+updated_at
+
+Table 2: chat_history
+chat_history_id (PK)
+user_id (FK)
+chat_id
+user_or_agent
+message
+json_object
+timestamp
+
+Table 3: flights
+flight_id (PK)
+flight_number
+airline
+aircraft_type
+departure_airport
+arrival_airport
+departure_time
+arrival_time
+duration_minutes
+available_seats
+seat_configuration
+price_economy
+price_business
+price_first
+meal_service
+baggage_allowance
+layovers
+status
+created_at
+updated_at
+
+Table 4: flight_bookings
+booking_id (PK)
+user_id (FK)
+flight_id (FK)
+trip_id (FK)
+passenger_details (JSON)
+seat_number
+class_type
+booking_status
+total_price
+payment_status
+booking_reference
+special_requests
+meal_preference
+checked_baggage_count
+booking_date
+travel_date
+cancellation_policy
+created_at
+updated_at
+
+Table 5: trip
+trip_id (PK)
+user_id (FK)
+trip_name
+destination_country
+destination_city
+start_date
+end_date
+total_budget
+current_spent
+trip_status
+number_of_travelers
+adults_count
+children_count
+infants_count
+trip_type
+purpose
+notes
+emergency_contact_name
+emergency_contact_phone
+created_at
+updated_at
+
+Table 6: accommodations
+accommodation_id (PK)
+name
+type
+address
+city
+country
+postal_code
+latitude
+longitude
+star_rating
+amenities (JSON)
+room_types (JSON)
+check_in_time
+check_out_time
+cancellation_policy
+pet_policy
+parking_available
+wifi_available
+breakfast_included
+gym_available
+pool_available
+spa_available
+business_center
+room_service
+concierge_service
+contact_phone
+contact_email
+images (JSON)
+description
+created_at
+updated_at
+
+Table 7: accommodation_bookings
+booking_id (PK)
+user_id (FK)
+accommodation_id (FK)
+trip_id (FK)
+room_type
+number_of_rooms
+adults_per_room
+children_per_room
+check_in_date
+check_out_date
+total_nights
+room_rate_per_night
+total_price
+booking_status
+payment_status
+booking_reference
+special_requests
+guest_details (JSON)
+cancellation_deadline
+booking_date
+created_at
+updated_at
