@@ -1,0 +1,202 @@
+{
+    "flights": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "flight_id": {
+                        "S": "FL001"
+                    },
+                    "flight_number": {
+                        "S": "AA100"
+                    },
+                    "airline": {
+                        "S": "American Airlines"
+                    },
+                    "aircraft_type": {
+                        "S": "Boeing 777"
+                    },
+                    "departure_airport": {
+                        "S": "JFK"
+                    },
+                    "arrival_airport": {
+                        "S": "LHR"
+                    },
+                    "departure_time": {
+                        "S": "2025-02-15T14:30:00Z"
+                    },
+                    "arrival_time": {
+                        "S": "2025-02-16T02:15:00Z"
+                    },
+                    "duration_minutes": {
+                        "N": "465"
+                    },
+                    "available_seats": {
+                        "N": "150"
+                    },
+                    "seat_configuration": {
+                        "S": "3-3-3"
+                    },
+                    "price_economy": {
+                        "N": "650"
+                    },
+                    "price_business": {
+                        "N": "1950"
+                    },
+                    "price_first": {
+                        "N": "3900"
+                    },
+                    "meal_service": {
+                        "S": "Full Meal"
+                    },
+                    "baggage_allowance": {
+                        "S": "23kg"
+                    },
+                    "layovers": {
+                        "S": "Direct"
+                    },
+                    "status": {
+                        "S": "Scheduled"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "flight_id": {
+                        "S": "FL002"
+                    },
+                    "flight_number": {
+                        "S": "BA204"
+                    },
+                    "airline": {
+                        "S": "British Airways"
+                    },
+                    "aircraft_type": {
+                        "S": "Airbus A380"
+                    },
+                    "departure_airport": {
+                        "S": "LHR"
+                    },
+                    "arrival_airport": {
+                        "S": "CDG"
+                    },
+                    "departure_time": {
+                        "S": "2025-02-20T09:45:00Z"
+                    },
+                    "arrival_time": {
+                        "S": "2025-02-20T12:00:00Z"
+                    },
+                    "duration_minutes": {
+                        "N": "135"
+                    },
+                    "available_seats": {
+                        "N": "200"
+                    },
+                    "seat_configuration": {
+                        "S": "2-4-2"
+                    },
+                    "price_economy": {
+                        "N": "180"
+                    },
+                    "price_business": {
+                        "N": "540"
+                    },
+                    "price_first": {
+                        "N": "1080"
+                    },
+                    "meal_service": {
+                        "S": "Snack"
+                    },
+                    "baggage_allowance": {
+                        "S": "23kg"
+                    },
+                    "layovers": {
+                        "S": "Direct"
+                    },
+                    "status": {
+                        "S": "Scheduled"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "flight_id": {
+                        "S": "FL003"
+                    },
+                    "flight_number": {
+                        "S": "EK215"
+                    },
+                    "airline": {
+                        "S": "Emirates"
+                    },
+                    "aircraft_type": {
+                        "S": "Boeing 787"
+                    },
+                    "departure_airport": {
+                        "S": "DXB"
+                    },
+                    "arrival_airport": {
+                        "S": "NRT"
+                    },
+                    "departure_time": {
+                        "S": "2025-02-25T22:15:00Z"
+                    },
+                    "arrival_time": {
+                        "S": "2025-02-26T14:30:00Z"
+                    },
+                    "duration_minutes": {
+                        "N": "615"
+                    },
+                    "available_seats": {
+                        "N": "120"
+                    },
+                    "seat_configuration": {
+                        "S": "3-3-3"
+                    },
+                    "price_economy": {
+                        "N": "850"
+                    },
+                    "price_business": {
+                        "N": "2550"
+                    },
+                    "price_first": {
+                        "N": "5100"
+                    },
+                    "meal_service": {
+                        "S": "Full Meal"
+                    },
+                    "baggage_allowance": {
+                        "S": "32kg"
+                    },
+                    "layovers": {
+                        "S": "Direct"
+                    },
+                    "status": {
+                        "S": "Scheduled"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

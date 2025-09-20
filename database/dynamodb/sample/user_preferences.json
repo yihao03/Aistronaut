@@ -1,0 +1,139 @@
+{
+    "user_preferences": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "preference_id": {
+                        "S": "PREF001"
+                    },
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "preferred_airline": {
+                        "S": "American Airlines"
+                    },
+                    "preferred_seat_type": {
+                        "S": "Window"
+                    },
+                    "preferred_class": {
+                        "S": "Economy"
+                    },
+                    "dietary_restrictions": {
+                        "S": "Vegetarian"
+                    },
+                    "accessibility_needs": {
+                        "S": "Wheelchair accessible"
+                    },
+                    "budget_range_min": {
+                        "N": "500"
+                    },
+                    "budget_range_max": {
+                        "N": "1500"
+                    },
+                    "preferred_accommodation_type": {
+                        "S": "Hotel"
+                    },
+                    "travel_style": {
+                        "S": "Business"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "preference_id": {
+                        "S": "PREF002"
+                    },
+                    "user_id": {
+                        "S": "USR002"
+                    },
+                    "preferred_airline": {
+                        "S": "British Airways"
+                    },
+                    "preferred_seat_type": {
+                        "S": "Aisle"
+                    },
+                    "preferred_class": {
+                        "S": "Business"
+                    },
+                    "dietary_restrictions": {
+                        "S": "None"
+                    },
+                    "accessibility_needs": {
+                        "S": "None"
+                    },
+                    "budget_range_min": {
+                        "N": "1000"
+                    },
+                    "budget_range_max": {
+                        "N": "3000"
+                    },
+                    "preferred_accommodation_type": {
+                        "S": "Resort"
+                    },
+                    "travel_style": {
+                        "S": "Luxury"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "preference_id": {
+                        "S": "PREF003"
+                    },
+                    "user_id": {
+                        "S": "USR003"
+                    },
+                    "preferred_airline": {
+                        "S": "Alitalia"
+                    },
+                    "preferred_seat_type": {
+                        "S": "Window"
+                    },
+                    "preferred_class": {
+                        "S": "Economy"
+                    },
+                    "dietary_restrictions": {
+                        "S": "Gluten-free"
+                    },
+                    "accessibility_needs": {
+                        "S": "None"
+                    },
+                    "budget_range_min": {
+                        "N": "300"
+                    },
+                    "budget_range_max": {
+                        "N": "800"
+                    },
+                    "preferred_accommodation_type": {
+                        "S": "Boutique Hotel"
+                    },
+                    "travel_style": {
+                        "S": "Budget"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

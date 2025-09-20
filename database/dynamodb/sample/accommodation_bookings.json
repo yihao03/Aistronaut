@@ -1,0 +1,250 @@
+{
+    "accommodation_bookings": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "booking_id": {
+                        "S": "AB001"
+                    },
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "accommodation_id": {
+                        "S": "ACC001"
+                    },
+                    "trip_id": {
+                        "S": "TRIP001"
+                    },
+                    "room_type": {
+                        "S": "Standard Room"
+                    },
+                    "number_of_rooms": {
+                        "N": "1"
+                    },
+                    "adults_per_room": {
+                        "N": "1"
+                    },
+                    "children_per_room": {
+                        "N": "0"
+                    },
+                    "check_in_date": {
+                        "S": "2025-02-15T15:00:00Z"
+                    },
+                    "check_out_date": {
+                        "S": "2025-02-20T11:00:00Z"
+                    },
+                    "total_nights": {
+                        "N": "5"
+                    },
+                    "room_rate_per_night": {
+                        "N": "300"
+                    },
+                    "total_price": {
+                        "N": "1500"
+                    },
+                    "booking_status": {
+                        "S": "Confirmed"
+                    },
+                    "payment_status": {
+                        "S": "Paid"
+                    },
+                    "booking_reference": {
+                        "S": "SAV001JDOE"
+                    },
+                    "special_requests": {
+                        "S": "High floor room preferred"
+                    },
+                    "guest_details": {
+                        "M": {
+                            "name": {
+                                "S": "John Doe"
+                            },
+                            "email": {
+                                "S": "john.doe@email.com"
+                            },
+                            "phone": {
+                                "S": "+1-555-0123"
+                            }
+                        }
+                    },
+                    "cancellation_deadline": {
+                        "S": "2025-02-14T15:00:00Z"
+                    },
+                    "booking_date": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "booking_id": {
+                        "S": "AB002"
+                    },
+                    "user_id": {
+                        "S": "USR002"
+                    },
+                    "accommodation_id": {
+                        "S": "ACC002"
+                    },
+                    "trip_id": {
+                        "S": "TRIP002"
+                    },
+                    "room_type": {
+                        "S": "Suite"
+                    },
+                    "number_of_rooms": {
+                        "N": "1"
+                    },
+                    "adults_per_room": {
+                        "N": "2"
+                    },
+                    "children_per_room": {
+                        "N": "0"
+                    },
+                    "check_in_date": {
+                        "S": "2025-02-20T15:00:00Z"
+                    },
+                    "check_out_date": {
+                        "S": "2025-02-25T12:00:00Z"
+                    },
+                    "total_nights": {
+                        "N": "5"
+                    },
+                    "room_rate_per_night": {
+                        "N": "800"
+                    },
+                    "total_price": {
+                        "N": "4000"
+                    },
+                    "booking_status": {
+                        "S": "Confirmed"
+                    },
+                    "payment_status": {
+                        "S": "Paid"
+                    },
+                    "booking_reference": {
+                        "S": "RITZ002SWIL"
+                    },
+                    "special_requests": {
+                        "S": "Romantic setup for anniversary"
+                    },
+                    "guest_details": {
+                        "M": {
+                            "name": {
+                                "S": "Sarah Wilson"
+                            },
+                            "email": {
+                                "S": "sarah.wilson@email.com"
+                            },
+                            "phone": {
+                                "S": "+44-20-7946-0958"
+                            }
+                        }
+                    },
+                    "cancellation_deadline": {
+                        "S": "2025-02-18T15:00:00Z"
+                    },
+                    "booking_date": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "booking_id": {
+                        "S": "AB003"
+                    },
+                    "user_id": {
+                        "S": "USR003"
+                    },
+                    "accommodation_id": {
+                        "S": "ACC003"
+                    },
+                    "trip_id": {
+                        "S": "TRIP003"
+                    },
+                    "room_type": {
+                        "S": "Capsule"
+                    },
+                    "number_of_rooms": {
+                        "N": "1"
+                    },
+                    "adults_per_room": {
+                        "N": "1"
+                    },
+                    "children_per_room": {
+                        "N": "0"
+                    },
+                    "check_in_date": {
+                        "S": "2025-02-25T16:00:00Z"
+                    },
+                    "check_out_date": {
+                        "S": "2025-03-05T10:00:00Z"
+                    },
+                    "total_nights": {
+                        "N": "8"
+                    },
+                    "room_rate_per_night": {
+                        "N": "50"
+                    },
+                    "total_price": {
+                        "N": "400"
+                    },
+                    "booking_status": {
+                        "S": "Pending"
+                    },
+                    "payment_status": {
+                        "S": "Pending"
+                    },
+                    "booking_reference": {
+                        "S": "CAP003MROS"
+                    },
+                    "special_requests": {
+                        "S": "Quiet capsule preferred"
+                    },
+                    "guest_details": {
+                        "M": {
+                            "name": {
+                                "S": "Marco Rossi"
+                            },
+                            "email": {
+                                "S": "marco.rossi@email.com"
+                            },
+                            "phone": {
+                                "S": "+39-06-1234-5678"
+                            }
+                        }
+                    },
+                    "cancellation_deadline": {
+                        "S": "2025-02-24T16:00:00Z"
+                    },
+                    "booking_date": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,448 @@
+{
+    "accommodations": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "accommodation_id": {
+                        "S": "ACC001"
+                    },
+                    "name": {
+                        "S": "The Savoy London"
+                    },
+                    "type": {
+                        "S": "Hotel"
+                    },
+                    "address": {
+                        "S": "1 Savoy Hill, London WC2R 0EZ, UK"
+                    },
+                    "city": {
+                        "S": "London"
+                    },
+                    "country": {
+                        "S": "United Kingdom"
+                    },
+                    "postal_code": {
+                        "S": "WC2R 0EZ"
+                    },
+                    "latitude": {
+                        "N": "51.5103"
+                    },
+                    "longitude": {
+                        "N": "-0.1206"
+                    },
+                    "star_rating": {
+                        "N": "5"
+                    },
+                    "amenities": {
+                        "L": [
+                            {
+                                "S": "WiFi"
+                            },
+                            {
+                                "S": "Pool"
+                            },
+                            {
+                                "S": "Spa"
+                            },
+                            {
+                                "S": "Restaurant"
+                            },
+                            {
+                                "S": "Bar"
+                            },
+                            {
+                                "S": "Room Service"
+                            },
+                            {
+                                "S": "Concierge"
+                            },
+                            {
+                                "S": "Business Center"
+                            },
+                            {
+                                "S": "Parking"
+                            },
+                            {
+                                "S": "24/7 Front Desk"
+                            }
+                        ]
+                    },
+                    "room_types": {
+                        "L": [
+                            {
+                                "S": "Standard Room"
+                            },
+                            {
+                                "S": "Deluxe Room"
+                            },
+                            {
+                                "S": "Suite"
+                            },
+                            {
+                                "S": "Presidential Suite"
+                            },
+                            {
+                                "S": "City View Room"
+                            }
+                        ]
+                    },
+                    "check_in_time": {
+                        "S": "15:00"
+                    },
+                    "check_out_time": {
+                        "S": "11:00"
+                    },
+                    "cancellation_policy": {
+                        "S": "Free cancellation up to 24 hours before check-in"
+                    },
+                    "pet_policy": {
+                        "S": "Pets allowed with additional fee"
+                    },
+                    "parking_available": {
+                        "BOOL": true
+                    },
+                    "wifi_available": {
+                        "BOOL": true
+                    },
+                    "breakfast_included": {
+                        "BOOL": false
+                    },
+                    "gym_available": {
+                        "BOOL": true
+                    },
+                    "pool_available": {
+                        "BOOL": true
+                    },
+                    "spa_available": {
+                        "BOOL": true
+                    },
+                    "business_center": {
+                        "BOOL": true
+                    },
+                    "room_service": {
+                        "BOOL": true
+                    },
+                    "concierge_service": {
+                        "BOOL": true
+                    },
+                    "contact_phone": {
+                        "S": "+44-20-7836-4343"
+                    },
+                    "contact_email": {
+                        "S": "info@thesavoylondon.com"
+                    },
+                    "images": {
+                        "L": [
+                            {
+                                "S": "https://example.com/savoy1.jpg"
+                            },
+                            {
+                                "S": "https://example.com/savoy2.jpg"
+                            },
+                            {
+                                "S": "https://example.com/savoy3.jpg"
+                            }
+                        ]
+                    },
+                    "description": {
+                        "S": "Experience luxury and comfort at The Savoy London, located in the heart of London."
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "accommodation_id": {
+                        "S": "ACC002"
+                    },
+                    "name": {
+                        "S": "Hotel Ritz Paris"
+                    },
+                    "type": {
+                        "S": "Boutique Hotel"
+                    },
+                    "address": {
+                        "S": "15 Place Vendôme, 75001 Paris, France"
+                    },
+                    "city": {
+                        "S": "Paris"
+                    },
+                    "country": {
+                        "S": "France"
+                    },
+                    "postal_code": {
+                        "S": "75001"
+                    },
+                    "latitude": {
+                        "N": "48.8674"
+                    },
+                    "longitude": {
+                        "N": "2.3306"
+                    },
+                    "star_rating": {
+                        "N": "5"
+                    },
+                    "amenities": {
+                        "L": [
+                            {
+                                "S": "WiFi"
+                            },
+                            {
+                                "S": "Spa"
+                            },
+                            {
+                                "S": "Restaurant"
+                            },
+                            {
+                                "S": "Bar"
+                            },
+                            {
+                                "S": "Room Service"
+                            },
+                            {
+                                "S": "Concierge"
+                            },
+                            {
+                                "S": "Business Center"
+                            },
+                            {
+                                "S": "24/7 Front Desk"
+                            },
+                            {
+                                "S": "Elevator"
+                            },
+                            {
+                                "S": "Fitness Center"
+                            }
+                        ]
+                    },
+                    "room_types": {
+                        "L": [
+                            {
+                                "S": "Deluxe Room"
+                            },
+                            {
+                                "S": "Suite"
+                            },
+                            {
+                                "S": "Presidential Suite"
+                            },
+                            {
+                                "S": "City View Room"
+                            },
+                            {
+                                "S": "Garden View Room"
+                            }
+                        ]
+                    },
+                    "check_in_time": {
+                        "S": "15:00"
+                    },
+                    "check_out_time": {
+                        "S": "12:00"
+                    },
+                    "cancellation_policy": {
+                        "S": "Free cancellation up to 48 hours before check-in"
+                    },
+                    "pet_policy": {
+                        "S": "Pets on request"
+                    },
+                    "parking_available": {
+                        "BOOL": true
+                    },
+                    "wifi_available": {
+                        "BOOL": true
+                    },
+                    "breakfast_included": {
+                        "BOOL": true
+                    },
+                    "gym_available": {
+                        "BOOL": true
+                    },
+                    "pool_available": {
+                        "BOOL": false
+                    },
+                    "spa_available": {
+                        "BOOL": true
+                    },
+                    "business_center": {
+                        "BOOL": true
+                    },
+                    "room_service": {
+                        "BOOL": true
+                    },
+                    "concierge_service": {
+                        "BOOL": true
+                    },
+                    "contact_phone": {
+                        "S": "+33-1-43-16-30-30"
+                    },
+                    "contact_email": {
+                        "S": "info@ritzparis.com"
+                    },
+                    "images": {
+                        "L": [
+                            {
+                                "S": "https://example.com/ritz1.jpg"
+                            },
+                            {
+                                "S": "https://example.com/ritz2.jpg"
+                            },
+                            {
+                                "S": "https://example.com/ritz3.jpg"
+                            }
+                        ]
+                    },
+                    "description": {
+                        "S": "Discover the perfect blend of modern amenities and traditional hospitality at Hotel Ritz Paris."
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "accommodation_id": {
+                        "S": "ACC003"
+                    },
+                    "name": {
+                        "S": "Capsule Hotel Shibuya"
+                    },
+                    "type": {
+                        "S": "Capsule Hotel"
+                    },
+                    "address": {
+                        "S": "2-1-1 Shibuya, Shibuya City, Tokyo 150-0002, Japan"
+                    },
+                    "city": {
+                        "S": "Tokyo"
+                    },
+                    "country": {
+                        "S": "Japan"
+                    },
+                    "postal_code": {
+                        "S": "150-0002"
+                    },
+                    "latitude": {
+                        "N": "35.6580"
+                    },
+                    "longitude": {
+                        "N": "139.7016"
+                    },
+                    "star_rating": {
+                        "N": "3"
+                    },
+                    "amenities": {
+                        "L": [
+                            {
+                                "S": "WiFi"
+                            },
+                            {
+                                "S": "Laundry Service"
+                            },
+                            {
+                                "S": "24/7 Front Desk"
+                            },
+                            {
+                                "S": "Elevator"
+                            },
+                            {
+                                "S": "Airport Shuttle"
+                            }
+                        ]
+                    },
+                    "room_types": {
+                        "L": [
+                            {
+                                "S": "Capsule"
+                            },
+                            {
+                                "S": "Single Room"
+                            },
+                            {
+                                "S": "Twin Room"
+                            }
+                        ]
+                    },
+                    "check_in_time": {
+                        "S": "16:00"
+                    },
+                    "check_out_time": {
+                        "S": "10:00"
+                    },
+                    "cancellation_policy": {
+                        "S": "Non-refundable"
+                    },
+                    "pet_policy": {
+                        "S": "No pets allowed"
+                    },
+                    "parking_available": {
+                        "BOOL": false
+                    },
+                    "wifi_available": {
+                        "BOOL": true
+                    },
+                    "breakfast_included": {
+                        "BOOL": false
+                    },
+                    "gym_available": {
+                        "BOOL": false
+                    },
+                    "pool_available": {
+                        "BOOL": false
+                    },
+                    "spa_available": {
+                        "BOOL": false
+                    },
+                    "business_center": {
+                        "BOOL": false
+                    },
+                    "room_service": {
+                        "BOOL": false
+                    },
+                    "concierge_service": {
+                        "BOOL": false
+                    },
+                    "contact_phone": {
+                        "S": "+81-3-5456-1234"
+                    },
+                    "contact_email": {
+                        "S": "info@capsulehotelshibuya.com"
+                    },
+                    "images": {
+                        "L": [
+                            {
+                                "S": "https://example.com/capsule1.jpg"
+                            },
+                            {
+                                "S": "https://example.com/capsule2.jpg"
+                            }
+                        ]
+                    },
+                    "description": {
+                        "S": "Your gateway to Tokyo, Capsule Hotel Shibuya offers exceptional service and stunning views."
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,118 @@
+{
+    "chat_history": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "chat_history_id": {
+                        "S": "CHAT001"
+                    },
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "chat_id": {
+                        "S": "CH001"
+                    },
+                    "user_or_agent": {
+                        "S": "user"
+                    },
+                    "message": {
+                        "S": "I need help finding a flight from New York to London for next week"
+                    },
+                    "json_object": {
+                        "M": {
+                            "intent": {
+                                "S": "flight_search"
+                            },
+                            "origin": {
+                                "S": "New York"
+                            },
+                            "destination": {
+                                "S": "London"
+                            },
+                            "date": {
+                                "S": "next week"
+                            }
+                        }
+                    },
+                    "timestamp": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "chat_history_id": {
+                        "S": "CHAT002"
+                    },
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "chat_id": {
+                        "S": "CH001"
+                    },
+                    "user_or_agent": {
+                        "S": "agent"
+                    },
+                    "message": {
+                        "S": "I found several flights from JFK to LHR. Here are the best options with prices ranging from $600-$1200"
+                    },
+                    "json_object": {
+                        "M": {
+                            "response_type": {
+                                "S": "flight_options"
+                            },
+                            "options_count": {
+                                "N": "5"
+                            },
+                            "price_range": {
+                                "S": "$600-$1200"
+                            }
+                        }
+                    },
+                    "timestamp": {
+                        "S": "2025-01-27T10:01:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "chat_history_id": {
+                        "S": "CHAT003"
+                    },
+                    "user_id": {
+                        "S": "USR002"
+                    },
+                    "chat_id": {
+                        "S": "CH002"
+                    },
+                    "user_or_agent": {
+                        "S": "user"
+                    },
+                    "message": {
+                        "S": "What hotels do you recommend in Paris for a romantic getaway?"
+                    },
+                    "json_object": {
+                        "M": {
+                            "intent": {
+                                "S": "hotel_search"
+                            },
+                            "destination": {
+                                "S": "Paris"
+                            },
+                            "trip_type": {
+                                "S": "romantic"
+                            }
+                        }
+                    },
+                    "timestamp": {
+                        "S": "2025-01-27T10:15:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

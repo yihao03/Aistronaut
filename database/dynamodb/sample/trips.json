@@ -1,0 +1,211 @@
+{
+    "trips": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "trip_id": {
+                        "S": "TRIP001"
+                    },
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "trip_name": {
+                        "S": "Business Trip to London"
+                    },
+                    "destination_country": {
+                        "S": "United Kingdom"
+                    },
+                    "destination_city": {
+                        "S": "London"
+                    },
+                    "start_date": {
+                        "S": "2025-02-15T00:00:00Z"
+                    },
+                    "end_date": {
+                        "S": "2025-02-20T00:00:00Z"
+                    },
+                    "total_budget": {
+                        "N": "2000"
+                    },
+                    "current_spent": {
+                        "N": "650"
+                    },
+                    "trip_status": {
+                        "S": "Confirmed"
+                    },
+                    "number_of_travelers": {
+                        "N": "1"
+                    },
+                    "adults_count": {
+                        "N": "1"
+                    },
+                    "children_count": {
+                        "N": "0"
+                    },
+                    "infants_count": {
+                        "N": "0"
+                    },
+                    "trip_type": {
+                        "S": "Business"
+                    },
+                    "purpose": {
+                        "S": "Client meetings and conference"
+                    },
+                    "notes": {
+                        "S": "Need to visit 3 clients in central London"
+                    },
+                    "emergency_contact_name": {
+                        "S": "Jane Doe"
+                    },
+                    "emergency_contact_phone": {
+                        "S": "+1-555-0124"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "trip_id": {
+                        "S": "TRIP002"
+                    },
+                    "user_id": {
+                        "S": "USR002"
+                    },
+                    "trip_name": {
+                        "S": "Romantic Paris Getaway"
+                    },
+                    "destination_country": {
+                        "S": "France"
+                    },
+                    "destination_city": {
+                        "S": "Paris"
+                    },
+                    "start_date": {
+                        "S": "2025-02-20T00:00:00Z"
+                    },
+                    "end_date": {
+                        "S": "2025-02-25T00:00:00Z"
+                    },
+                    "total_budget": {
+                        "N": "5000"
+                    },
+                    "current_spent": {
+                        "N": "540"
+                    },
+                    "trip_status": {
+                        "S": "Confirmed"
+                    },
+                    "number_of_travelers": {
+                        "N": "2"
+                    },
+                    "adults_count": {
+                        "N": "2"
+                    },
+                    "children_count": {
+                        "N": "0"
+                    },
+                    "infants_count": {
+                        "N": "0"
+                    },
+                    "trip_type": {
+                        "S": "Leisure"
+                    },
+                    "purpose": {
+                        "S": "Anniversary celebration"
+                    },
+                    "notes": {
+                        "S": "Looking for romantic restaurants and activities"
+                    },
+                    "emergency_contact_name": {
+                        "S": "Michael Wilson"
+                    },
+                    "emergency_contact_phone": {
+                        "S": "+44-20-7946-0959"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "trip_id": {
+                        "S": "TRIP003"
+                    },
+                    "user_id": {
+                        "S": "USR003"
+                    },
+                    "trip_name": {
+                        "S": "Tokyo Adventure"
+                    },
+                    "destination_country": {
+                        "S": "Japan"
+                    },
+                    "destination_city": {
+                        "S": "Tokyo"
+                    },
+                    "start_date": {
+                        "S": "2025-02-25T00:00:00Z"
+                    },
+                    "end_date": {
+                        "S": "2025-03-05T00:00:00Z"
+                    },
+                    "total_budget": {
+                        "N": "3000"
+                    },
+                    "current_spent": {
+                        "N": "850"
+                    },
+                    "trip_status": {
+                        "S": "Planning"
+                    },
+                    "number_of_travelers": {
+                        "N": "1"
+                    },
+                    "adults_count": {
+                        "N": "1"
+                    },
+                    "children_count": {
+                        "N": "0"
+                    },
+                    "infants_count": {
+                        "N": "0"
+                    },
+                    "trip_type": {
+                        "S": "Leisure"
+                    },
+                    "purpose": {
+                        "S": "Cultural exploration and sightseeing"
+                    },
+                    "notes": {
+                        "S": "First time visiting Japan, interested in temples and food"
+                    },
+                    "emergency_contact_name": {
+                        "S": "Giulia Rossi"
+                    },
+                    "emergency_contact_phone": {
+                        "S": "+39-06-1234-5679"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

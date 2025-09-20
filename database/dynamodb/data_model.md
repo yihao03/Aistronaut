@@ -1,4 +1,6 @@
-Table 0: user
+# Data Models
+
+## Table 1: users
 user_id (PK)
 username
 email
@@ -12,7 +14,7 @@ nationality
 created_at
 updated_at
 
-Table 1: user_preferences
+## Table 2: user_preferences
 preference_id (PK)
 user_id (FK)
 preferred_airline
@@ -27,7 +29,7 @@ travel_style
 created_at
 updated_at
 
-Table 2: chat_history
+## Table 3: chat_history
 chat_history_id (PK)
 user_id (FK)
 chat_id
@@ -36,7 +38,7 @@ message
 json_object
 timestamp
 
-Table 3: flights
+## Table 4: flights
 flight_id (PK)
 flight_number
 airline
@@ -58,7 +60,7 @@ status
 created_at
 updated_at
 
-Table 4: flight_bookings
+## Table 5: flight_bookings
 booking_id (PK)
 user_id (FK)
 flight_id (FK)
@@ -79,7 +81,7 @@ cancellation_policy
 created_at
 updated_at
 
-Table 5: trip
+## Table 6: trips
 trip_id (PK)
 user_id (FK)
 trip_name
@@ -102,7 +104,7 @@ emergency_contact_phone
 created_at
 updated_at
 
-Table 6: accommodations
+## Table 7: accommodations
 accommodation_id (PK)
 name
 type
@@ -135,7 +137,7 @@ description
 created_at
 updated_at
 
-Table 7: accommodation_bookings
+## Table 8: accommodation_bookings
 booking_id (PK)
 user_id (FK)
 accommodation_id (FK)
