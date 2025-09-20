@@ -1,0 +1,130 @@
+{
+    "users": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "username": {
+                        "S": "john_doe"
+                    },
+                    "email": {
+                        "S": "john.doe@email.com"
+                    },
+                    "encrypted_password": {
+                        "S": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4Kz8K2"
+                    },
+                    "first_name": {
+                        "S": "John"
+                    },
+                    "last_name": {
+                        "S": "Doe"
+                    },
+                    "phone_number": {
+                        "S": "+1-555-0123"
+                    },
+                    "date_of_birth": {
+                        "S": "1990-05-15"
+                    },
+                    "passport_number": {
+                        "S": "A1234567"
+                    },
+                    "nationality": {
+                        "S": "American"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "user_id": {
+                        "S": "USR002"
+                    },
+                    "username": {
+                        "S": "sarah_wilson"
+                    },
+                    "email": {
+                        "S": "sarah.wilson@email.com"
+                    },
+                    "encrypted_password": {
+                        "S": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4Kz8K2"
+                    },
+                    "first_name": {
+                        "S": "Sarah"
+                    },
+                    "last_name": {
+                        "S": "Wilson"
+                    },
+                    "phone_number": {
+                        "S": "+44-20-7946-0958"
+                    },
+                    "date_of_birth": {
+                        "S": "1985-12-03"
+                    },
+                    "passport_number": {
+                        "S": "GB9876543"
+                    },
+                    "nationality": {
+                        "S": "British"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "user_id": {
+                        "S": "USR003"
+                    },
+                    "username": {
+                        "S": "marco_rossi"
+                    },
+                    "email": {
+                        "S": "marco.rossi@email.com"
+                    },
+                    "encrypted_password": {
+                        "S": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4Kz8K2"
+                    },
+                    "first_name": {
+                        "S": "Marco"
+                    },
+                    "last_name": {
+                        "S": "Rossi"
+                    },
+                    "phone_number": {
+                        "S": "+39-06-1234-5678"
+                    },
+                    "date_of_birth": {
+                        "S": "1992-08-22"
+                    },
+                    "passport_number": {
+                        "S": "IT4567890"
+                    },
+                    "nationality": {
+                        "S": "Italian"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}

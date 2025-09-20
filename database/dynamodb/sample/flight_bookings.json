@@ -1,0 +1,223 @@
+{
+    "flight_bookings": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "booking_id": {
+                        "S": "FB001"
+                    },
+                    "user_id": {
+                        "S": "USR001"
+                    },
+                    "flight_id": {
+                        "S": "FL001"
+                    },
+                    "trip_id": {
+                        "S": "TRIP001"
+                    },
+                    "passenger_details": {
+                        "M": {
+                            "name": {
+                                "S": "John Doe"
+                            },
+                            "passport": {
+                                "S": "A1234567"
+                            },
+                            "seat_preference": {
+                                "S": "Window"
+                            }
+                        }
+                    },
+                    "seat_number": {
+                        "S": "12A"
+                    },
+                    "class_type": {
+                        "S": "Economy"
+                    },
+                    "booking_status": {
+                        "S": "Confirmed"
+                    },
+                    "total_price": {
+                        "N": "650"
+                    },
+                    "payment_status": {
+                        "S": "Paid"
+                    },
+                    "booking_reference": {
+                        "S": "AA100JDOE"
+                    },
+                    "special_requests": {
+                        "S": "Vegetarian meal"
+                    },
+                    "meal_preference": {
+                        "S": "Vegetarian"
+                    },
+                    "checked_baggage_count": {
+                        "N": "1"
+                    },
+                    "booking_date": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "travel_date": {
+                        "S": "2025-02-15T14:30:00Z"
+                    },
+                    "cancellation_policy": {
+                        "S": "Free cancellation up to 24 hours before departure"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:00:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "booking_id": {
+                        "S": "FB002"
+                    },
+                    "user_id": {
+                        "S": "USR002"
+                    },
+                    "flight_id": {
+                        "S": "FL002"
+                    },
+                    "trip_id": {
+                        "S": "TRIP002"
+                    },
+                    "passenger_details": {
+                        "M": {
+                            "name": {
+                                "S": "Sarah Wilson"
+                            },
+                            "passport": {
+                                "S": "GB9876543"
+                            },
+                            "seat_preference": {
+                                "S": "Aisle"
+                            }
+                        }
+                    },
+                    "seat_number": {
+                        "S": "8B"
+                    },
+                    "class_type": {
+                        "S": "Business"
+                    },
+                    "booking_status": {
+                        "S": "Confirmed"
+                    },
+                    "total_price": {
+                        "N": "540"
+                    },
+                    "payment_status": {
+                        "S": "Paid"
+                    },
+                    "booking_reference": {
+                        "S": "BA204SWIL"
+                    },
+                    "special_requests": {
+                        "S": "Priority boarding"
+                    },
+                    "meal_preference": {
+                        "S": "Regular"
+                    },
+                    "checked_baggage_count": {
+                        "N": "2"
+                    },
+                    "booking_date": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "travel_date": {
+                        "S": "2025-02-20T09:45:00Z"
+                    },
+                    "cancellation_policy": {
+                        "S": "Free cancellation up to 2 hours before departure"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:05:00Z"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "booking_id": {
+                        "S": "FB003"
+                    },
+                    "user_id": {
+                        "S": "USR003"
+                    },
+                    "flight_id": {
+                        "S": "FL003"
+                    },
+                    "trip_id": {
+                        "S": "TRIP003"
+                    },
+                    "passenger_details": {
+                        "M": {
+                            "name": {
+                                "S": "Marco Rossi"
+                            },
+                            "passport": {
+                                "S": "IT4567890"
+                            },
+                            "seat_preference": {
+                                "S": "Window"
+                            }
+                        }
+                    },
+                    "seat_number": {
+                        "S": "15C"
+                    },
+                    "class_type": {
+                        "S": "Economy"
+                    },
+                    "booking_status": {
+                        "S": "Pending"
+                    },
+                    "total_price": {
+                        "N": "850"
+                    },
+                    "payment_status": {
+                        "S": "Pending"
+                    },
+                    "booking_reference": {
+                        "S": "EK215MROS"
+                    },
+                    "special_requests": {
+                        "S": "Gluten-free meal"
+                    },
+                    "meal_preference": {
+                        "S": "Gluten-free"
+                    },
+                    "checked_baggage_count": {
+                        "N": "1"
+                    },
+                    "booking_date": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "travel_date": {
+                        "S": "2025-02-25T22:15:00Z"
+                    },
+                    "cancellation_policy": {
+                        "S": "Free cancellation up to 24 hours before departure"
+                    },
+                    "created_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    },
+                    "updated_at": {
+                        "S": "2025-01-27T10:10:00Z"
+                    }
+                }
+            }
+        }
+    ]
+}
