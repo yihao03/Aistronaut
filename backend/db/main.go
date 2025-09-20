@@ -4,23 +4,26 @@ import (
 	"errors"
 	"log"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
+	"github.com/miyamo2/dynmgrm"
+	"github.com/yihao03/Aistronaut/m/v2/models"
+	"gorm.io/gorm"
 )
 
-var db *dynamodb.Client
+var db *gorm.DB
 
-func Setup(cfg *aws.Config) error {
-	setupdb := dynamodb.NewFromConfig(*cfg)
+func Setup(dsn string) error {
+	setupdb, err := gorm.Open(dynmgrm.Open(dsn), &gorm.Config{})
 	if setupdb == nil {
 		return errors.New("failed to connect database")
 	}
+	setupdb.AutoMigrate(&models.User{})
 
 	db = setupdb
-	return nil
+
+	return err
 }
 
-func GetDB() *dynamodb.Client {
+func GetDB() *gorm.DB {
 	if db == nil {
 		log.Panic("Database not initialized. Call Setup first.")
 	}
