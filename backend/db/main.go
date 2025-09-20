@@ -3,6 +3,7 @@ package db
 import (
 	"errors"
 	"log"
+	"os"
 
 	"github.com/miyamo2/dynmgrm"
 	"github.com/yihao03/Aistronaut/m/v2/models"
@@ -11,7 +12,11 @@ import (
 
 var db *gorm.DB
 
-func Setup(dsn string) error {
+func Setup() error {
+	dsn := os.Getenv("DATABASE_DSN")
+	if dsn == "" {
+		return errors.New("DATABASE_DSN environment variable is not set")
+	}
 	setupdb, err := gorm.Open(dynmgrm.Open(dsn), &gorm.Config{})
 	if setupdb == nil {
 		return errors.New("failed to connect database")
