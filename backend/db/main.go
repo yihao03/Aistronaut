@@ -4,15 +4,15 @@ import (
 	"errors"
 	"log"
 
+	"github.com/miyamo2/dynmgrm"
 	"github.com/yihao03/Aistronaut/m/v2/models"
-	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB
 
 func Setup(dsn string) error {
-	setupdb, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	setupdb, err := gorm.Open(dynmgrm.Open(dsn), &gorm.Config{})
 	if setupdb == nil {
 		return errors.New("failed to connect database")
 	}
