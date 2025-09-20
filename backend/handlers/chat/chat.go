@@ -1,10 +1,11 @@
 package chat
 
 import (
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/service/lambda"
+	"reflect"
+
 	"github.com/gin-gonic/gin"
-	"github.com/yihao03/Aistronaut/m/v2/lda"
+	"github.com/yihao03/Aistronaut/m/v2/db"
+	"github.com/yihao03/Aistronaut/m/v2/models"
 	"github.com/yihao03/Aistronaut/m/v2/params/chatparams"
 )
 
@@ -16,17 +17,28 @@ func ChatHandler(c *gin.Context) {
 		return
 	}
 
-	lambdaClient := lda.GetLambda()
-	payload := []byte(`{"body":{"text":"i wish to visit japan.","firstName":"Chen","chat_history":"None"}}`)
+	db := db.GetDB()
+	if err := db.Create(body.ToModel(body.UserID, "")).Error; err != nil {
+		c.JSON(500, gin.H{"error": "Failed to create chat history: " + err.Error()})
+		return
+	}
 
-	output, err := lambdaClient.Invoke(c.Request.Context(), &lambda.InvokeInput{
-		FunctionName: aws.String(lda.PARSER),
-		Payload:      payload,
-	})
+	var trip models.Trip
+	if err := db.Find(&trip, body.ConversationID).Error; err != nil {
+		c.JSON(500, gin.H{"error": "Failed to find trip: " + err.Error()})
+		return
+	}
 
-	if err != nil {
-		c.JSON(500, gin.H{"error": "Failed to invoke Lambda function" + err.Error()})
-	} else {
-		c.JSON(200, gin.H{"response": string(output.Payload)})
+	v := reflect.ValueOf(trip)
+	done := true
+	for i := 0; i < v.NumField(); i++ {
+		if v.Field(i).IsNil() {
+			done = false
+		}
+	}
+
+	if !done {
+		getRequirements(c)
+		return
 	}
 }

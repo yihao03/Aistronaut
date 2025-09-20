@@ -41,7 +41,7 @@ func Login(c *gin.Context) {
 	}
 
 	claims := jwt.MapClaims{
-		"userID":   user.ID,
+		"userID":   user.UserID,
 		"username": user.Username,
 		"exp":      time.Now().Add(24 * time.Hour).Unix(),
 		"iat":      time.Now().Unix(),
@@ -58,7 +58,7 @@ func Login(c *gin.Context) {
 	c.JSON(200, gin.H{"token": tokenString})
 }
 
-// for middleware
+// Authenticate for middleware
 func Authenticate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")

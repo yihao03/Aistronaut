@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/miyamo2/dynmgrm"
-	"github.com/yihao03/Aistronaut/m/v2/models"
 	"gorm.io/gorm"
 )
 
@@ -21,7 +20,6 @@ func Setup() error {
 	if setupdb == nil {
 		return errors.New("failed to connect database")
 	}
-	setupdb.AutoMigrate(&models.User{})
 
 	db = setupdb
 

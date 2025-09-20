@@ -40,6 +40,8 @@ aws dynamodb create-table ^
     --attribute-definitions ^
         AttributeName=chat_history_id,AttributeType=S ^
         AttributeName=user_id,AttributeType=S ^
+        AttributeName=content,AttributeType=S ^
+        AttributeName=object_string,AttributeType=S ^
         AttributeName=timestamp,AttributeType=S ^
     --key-schema ^
         AttributeName=chat_history_id,KeyType=HASH ^
