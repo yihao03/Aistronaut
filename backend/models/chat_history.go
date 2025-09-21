@@ -1,10 +1,12 @@
 package models
 
 type ChatHistory struct {
-	ChatHistoryID string `gorm:"primaryKey"`
+	ChatHistoryID string `gorm:"column:chat_history_id"`
+	ChatID        string `gorm:"column:chat_id"`
 	UserID        string
-	Content       string
-	ObjectString  string
+	UserOrAgent   string
+	Message       string
+	JSONObject    string
 	Timestamp     string
 }
 

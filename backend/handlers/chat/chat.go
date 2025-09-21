@@ -18,7 +18,9 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	db := db.GetDB()
-	if err := db.Create(body.ToModel(body.UserID, "")).Error; err != nil {
+	model := body.ToModel(body.UserID, "")
+
+	if err := db.Create(model).Error; err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create chat history: " + err.Error()})
 		return
 	}
@@ -32,7 +34,7 @@ func ChatHandler(c *gin.Context) {
 	v := reflect.ValueOf(trip)
 	done := true
 	for i := 0; i < v.NumField(); i++ {
-		if v.Field(i).IsNil() {
+		if v.Field(i).IsZero() {
 			done = false
 		}
 	}

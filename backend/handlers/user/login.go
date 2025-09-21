@@ -26,7 +26,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	var user model.User
+	var user model.Users
 	// find user by username
 	if err := db.Where("email = ?", body.Email).First(&user).Error; err != nil {
 		fmt.Println("user not found")
