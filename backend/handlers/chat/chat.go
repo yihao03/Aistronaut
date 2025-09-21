@@ -2,7 +2,6 @@ package chat
 
 import (
 	"fmt"
-	"reflect"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yihao03/Aistronaut/m/v2/db"
@@ -33,15 +32,7 @@ func ChatHandler(c *gin.Context) {
 	}
 	fmt.Printf("Trip found: %+v\n", &trip)
 
-	v := reflect.ValueOf(trip)
-	done := true
-	for i := 0; i < v.NumField(); i++ {
-		if v.Field(i).IsZero() {
-			done = false
-		}
-	}
-
-	if !done {
+	if CheckDetailsComplete(&trip) {
 		getRequirements(c, &trip)
 		return
 	}
