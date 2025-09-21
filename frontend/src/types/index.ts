@@ -9,6 +9,23 @@ export interface HolidayOption {
   hotel: string
   activities: string
   budget: string
+  // Enhanced fields for detailed display
+  description?: string
+  price?: string
+  features?: string[]
+  flightInfo?: {
+    airline: string
+    duration: string
+    stops: string
+  }
+  accommodationInfo?: {
+    name: string
+    type: string
+    rating: number
+    amenities: string[]
+  }
+  itinerary?: string[]
+  image?: string
 }
 
 export interface Message {
@@ -17,6 +34,61 @@ export interface Message {
   sender: 'user' | 'bot'
   timestamp: Date
   options?: HolidayOption[]
+  bookingDetails?: DemoBookingDetails
+}
+
+// Booking Details for demo version
+export interface DemoFlightDetails {
+  id: string
+  airline: string
+  flightNumber: string
+  departure: {
+    airport: string
+    city: string
+    time: string
+    date: string
+  }
+  arrival: {
+    airport: string
+    city: string
+    time: string
+    date: string
+  }
+  duration: string
+  class: string
+  price: string
+  baggage: string
+}
+
+export interface DemoAccommodationDetails {
+  id: string
+  name: string
+  type: string
+  rating: number
+  address: string
+  checkIn: string
+  checkOut: string
+  roomType: string
+  guests: number
+  nights: number
+  pricePerNight: string
+  totalPrice: string
+  amenities: string[]
+  images?: string[]
+}
+
+export interface DemoBookingDetails {
+  id: string
+  packageId: string
+  packageTitle: string
+  totalPrice: string
+  currency: string
+  validUntil: string
+  outboundFlight: DemoFlightDetails
+  returnFlight?: DemoFlightDetails
+  accommodation: DemoAccommodationDetails
+  inclusions: string[]
+  terms: string[]
 }
 
 export interface TripPlanResults {

@@ -19,49 +19,76 @@ import { Button } from '../components/ui/button';
 // Mock data - in real app, this would come from API/user state
 const mockTrips = [
   {
-    id: 'booking_bali_001',
-    packageTitle: 'Tropical Paradise Escape - Bali, Indonesia',
-    destination: 'Bali, Indonesia',
-    totalPrice: '$1,299',
+    id: 'BK1727297841123',
+    packageTitle: 'Bangkok Explorer - Complete Package',
+    destination: 'Bangkok, Thailand',
+    totalPrice: '$2,392',
     status: 'confirmed',
-    checkIn: '2024-02-16',
-    checkOut: '2024-02-22',
+    checkIn: '2025-09-23',
+    checkOut: '2025-09-24',
     guests: 2,
-    nights: 6,
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=400&h=250&fit=crop',
-    nextActivity: 'Flight departure in 25 days',
-    hotel: 'Seminyak Beach Resort & Spa',
-    airline: 'Emirates'
+    nights: 1,
+    image: 'https://images.unsplash.com/photo-1568142892948-84b0d468fcdb?w=400&h=250&fit=crop',
+    nextActivity: 'Flight departure in 2 days',
+    hotel: 'Grand Bangkok Hotel',
+    airline: 'Delta Air Lines',
+    features: ['Temple hopping', 'Floating markets', 'Thai cooking class', 'Tuk-tuk tours', 'River cruise'],
+    duration: '2 days / 1 night',
+    mode: 'chill'
   },
   {
-    id: 'booking_kyoto_002',
-    packageTitle: 'Cultural Heritage Journey - Kyoto, Japan',
-    destination: 'Kyoto, Japan',
-    totalPrice: '$1,599',
+    id: 'BK1727297841124',
+    packageTitle: 'Tokyo Adventure - Complete Package',
+    destination: 'Tokyo, Japan',
+    totalPrice: '$2,250',
     status: 'upcoming',
-    checkIn: '2024-03-20',
-    checkOut: '2024-03-25',
+    checkIn: '2025-10-15',
+    checkOut: '2025-10-16',
     guests: 2,
-    nights: 5,
-    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=250&fit=crop',
-    nextActivity: 'Flight departure in 58 days',
-    hotel: 'Traditional Kyoto Ryokan',
-    airline: 'ANA'
+    nights: 1,
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=250&fit=crop',
+    nextActivity: 'Flight departure in 24 days',
+    hotel: 'Grand Tokyo Hotel',
+    airline: 'Delta Air Lines',
+    features: ['Temple visits', 'Sushi workshops', 'Cherry blossom viewing', 'Shibuya crossing', 'Mt. Fuji day trip'],
+    duration: '2 days / 1 night',
+    mode: 'moderate'
   },
   {
-    id: 'booking_paris_003',
-    packageTitle: 'European Romance - Paris, France',
-    destination: 'Paris, France',
-    totalPrice: '$1,450',
+    id: 'BK1727297841125',
+    packageTitle: 'Seoul Discovery - Complete Package',
+    destination: 'Seoul, South Korea',
+    totalPrice: '$2,150',
     status: 'completed',
-    checkIn: '2024-01-10',
-    checkOut: '2024-01-15',
+    checkIn: '2025-08-20',
+    checkOut: '2025-08-21',
     guests: 2,
-    nights: 5,
-    image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=250&fit=crop',
+    nights: 1,
+    image: 'https://images.unsplash.com/photo-1588213441417-c36c71cd17de?w=400&h=250&fit=crop',
     nextActivity: 'Trip completed successfully',
-    hotel: 'Hotel des Arts Montmartre',
-    airline: 'Air France'
+    hotel: 'Grand Seoul Hotel',
+    airline: 'Delta Air Lines',
+    features: ['Palace tours', 'K-pop experiences', 'Korean BBQ', 'Hanbok rental', 'DMZ tour'],
+    duration: '2 days / 1 night',
+    mode: 'intense'
+  },
+  {
+    id: 'BK1727297841126',
+    packageTitle: 'Singapore Highlights - Complete Package',
+    destination: 'Singapore',
+    totalPrice: '$2,450',
+    status: 'confirmed',
+    checkIn: '2025-11-05',
+    checkOut: '2025-11-06',
+    guests: 2,
+    nights: 1,
+    image: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=400&h=250&fit=crop',
+    nextActivity: 'Flight departure in 45 days',
+    hotel: 'Grand Singapore Hotel',
+    airline: 'Delta Air Lines',
+    features: ['Gardens by the Bay', 'Marina Bay Sands', 'Food courts', 'Sentosa Island', 'Night safari'],
+    duration: '2 days / 1 night',
+    mode: 'chill'
   }
 ];
 
@@ -149,21 +176,13 @@ export default function MyTrips() {
         {/* Trips Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredTrips.map((trip) => (
-            <div key={trip.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              {/* Trip Image */}
-              <div className="relative h-48 bg-gray-200">
-                <img 
-                  src={trip.image} 
-                  alt={trip.destination}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-4 right-4">
-                  {getStatusBadge(trip.status)}
-                </div>
-              </div>
-
+            <div key={trip.id} className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
               {/* Trip Content */}
               <div className="p-6">
+                {/* Status Badge */}
+                <div className="flex justify-end mb-4">
+                  {getStatusBadge(trip.status)}
+                </div>
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {trip.packageTitle}
@@ -199,6 +218,27 @@ export default function MyTrips() {
                   <div className="flex items-center text-sm text-gray-600">
                     <Building className="h-4 w-4 mr-1" />
                     {trip.hotel}
+                  </div>
+                </div>
+
+                {/* Trip Features */}
+                <div className="mb-4">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">✨ Included Features:</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {trip.features?.slice(0, 3).map((feature, index) => (
+                      <span key={index} className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">
+                        {feature}
+                      </span>
+                    ))}
+                    {trip.features && trip.features.length > 3 && (
+                      <span className="text-xs text-gray-500 px-2 py-1">+{trip.features.length - 3} more</span>
+                    )}
+                  </div>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-xs text-gray-500">{trip.duration}</span>
+                    <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full capitalize">
+                      {trip.mode} mode
+                    </span>
                   </div>
                 </div>
 

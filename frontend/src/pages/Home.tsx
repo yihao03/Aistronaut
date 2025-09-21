@@ -23,7 +23,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex bg-gray-100 rounded-lg p-1">
-              <button
+              {/* <button
                 onClick={() => setChatMode('original')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   chatMode === 'original'
@@ -32,7 +32,7 @@ export default function Home() {
                 }`}
               >
                 Original Demo
-              </button>
+              </button> */}
               <button
                 onClick={() => setChatMode('api')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${

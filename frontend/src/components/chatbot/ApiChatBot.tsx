@@ -7,6 +7,8 @@ import { useApiChat } from '../../hooks/useApiChat';
 import { useAuth } from '../../contexts/AuthContext';
 import ApiMessageBubble from './ApiMessageBubble';
 import ApiOptionBoxes from './ApiOptionBoxes';
+import TripOptionBoxes from './TripOptionBoxes';
+import AccommodationOptionBoxes from './AccommodationOptionBoxes';
 import BookingDetails from './BookingDetails';
 import TypingIndicator from './TypingIndicator';
 import NewConversationButton from './NewConversationButton';
@@ -24,6 +26,9 @@ export default function ApiChatBot() {
     messagesEndRef,
     sendMessage,
     selectOption,
+    selectFlight,
+    selectTrip,
+    selectAccommodation,
     retryLastMessage,
     clearError,
     handleKeyPress,
@@ -131,9 +136,37 @@ export default function ApiChatBot() {
               </div>
             )}
             
-            {/* Booking Details */}
-            {message.bookingDetails && message.sender === 'bot' && !message.isError && (
+            {/* Trip Options */}
+            {message.tripOptions && message.sender === 'bot' && !message.isError && (
               <div className="mt-4">
+                <TripOptionBoxes 
+                  tripOptions={message.tripOptions} 
+                  onSelectTrip={selectTrip} 
+                />
+              </div>
+            )}
+            
+            {/* Accommodation Options */}
+            {message.accommodationOptions && message.sender === 'bot' && !message.isError && (
+              <div className="mt-4">
+                <AccommodationOptionBoxes 
+                  accommodationOptions={message.accommodationOptions} 
+                  onSelectAccommodation={selectAccommodation} 
+                />
+              </div>
+            )}
+            
+            {/* Booking Details */}
+            {(() => {
+              console.log('Checking booking details for message:', message.id, 'bookingDetails:', !!message.bookingDetails, 'sender:', message.sender, 'isError:', message.isError);
+              if (message.bookingDetails) {
+                console.log('BookingDetails object:', message.bookingDetails);
+              }
+              return null;
+            })()}
+            {message.bookingDetails && message.sender === 'bot' && !message.isError && (
+              <div className="mt-4 ml-12">
+                {console.log('Rendering BookingDetails component')}
                 <BookingDetails 
                   bookingDetails={message.bookingDetails}
                   onConfirm={confirmBooking}

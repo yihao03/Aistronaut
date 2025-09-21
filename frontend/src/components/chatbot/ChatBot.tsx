@@ -4,7 +4,8 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { useChatbot } from '../../hooks/useChatbot'
 import MessageBubble from './MessageBubble'
-import OptionBoxes from './OptionBoxes'
+import EnhancedOptionBoxes from './EnhancedOptionBoxes'
+import DemoBookingDetails from './DemoBookingDetails'
 import TypingIndicator from './TypingIndicator'
 
 export default function ChatBot() {
@@ -13,9 +14,12 @@ export default function ChatBot() {
     inputMessage,
     setInputMessage,
     isTyping,
+    isProcessingBooking,
     messagesEndRef,
     sendMessage,
-    selectOption
+    selectOption,
+    confirmBooking,
+    cancelBooking
   } = useChatbot()
 
   const handleSendMessage = () => {
@@ -47,9 +51,19 @@ export default function ChatBot() {
             
             {/* Holiday Options */}
             {message.options && message.sender === 'bot' && (
-              <OptionBoxes 
+              <EnhancedOptionBoxes 
                 options={message.options} 
                 onSelectOption={selectOption} 
+              />
+            )}
+            
+            {/* Booking Details */}
+            {message.bookingDetails && message.sender === 'bot' && (
+              <DemoBookingDetails 
+                bookingDetails={message.bookingDetails}
+                onConfirm={confirmBooking}
+                onCancel={cancelBooking}
+                isLoading={isProcessingBooking}
               />
             )}
           </div>
@@ -72,7 +86,7 @@ export default function ChatBot() {
           />
           <Button 
             onClick={handleSendMessage}
-            disabled={!inputMessage.trim() || isTyping}
+            disabled={!inputMessage.trim() || isTyping || isProcessingBooking}
             className="px-4"
           >
             <Send className="h-4 w-4" />

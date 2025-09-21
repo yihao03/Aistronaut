@@ -28,186 +28,140 @@ import { BookingDetails } from '../services/chatApi';
 
 // Mock data - in real app, this would come from API/state management
 const mockTripDetails: BookingDetails = {
-  id: 'booking_bali_001',
-  packageId: 'pkg_bali_001',
-  packageTitle: 'Tropical Paradise Escape - Bali, Indonesia',
-  totalPrice: '$1,299',
+  id: 'BK1727297841123',
+  packageId: 'trip_flight_0_chill',
+  packageTitle: 'Bangkok Explorer - Complete Package',
+  totalPrice: '$2,392',
   currency: 'USD',
   validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
   outboundFlight: {
-    id: 'flight_out_001',
-    airline: 'Emirates',
-    flightNumber: 'EK 368',
+    id: 'DL9012',
+    airline: 'Delta Air Lines',
+    flightNumber: 'DL9012',
     departure: {
-      airport: 'JFK',
-      city: 'New York',
-      time: '11:30 PM',
-      date: '2024-02-15'
+      airport: 'GIO Airport',
+      city: 'GIO',
+      time: '19:38',
+      date: '2025-09-22'
     },
     arrival: {
-      airport: 'DPS',
-      city: 'Denpasar, Bali',
-      time: '11:45 PM (+1)',
-      date: '2024-02-16'
+      airport: 'ANG Airport',
+      city: 'ANG',
+      time: '12:31',
+      date: '2025-09-23'
     },
-    duration: '18h 15m (1 stop)',
-    class: 'Economy',
-    price: '$680',
-    baggage: '2 x 23kg checked, 7kg carry-on'
+    duration: '16.9 hours',
+    class: 'Chill',
+    price: '$1,137',
+    baggage: '1x 23kg checked bag, 1x carry-on'
   },
   returnFlight: {
-    id: 'flight_ret_001',
-    airline: 'Emirates',
-    flightNumber: 'EK 369',
+    id: 'DL8117',
+    airline: 'Delta Air Lines',
+    flightNumber: 'DL8117',
     departure: {
-      airport: 'DPS',
-      city: 'Denpasar, Bali',
-      time: '12:40 AM',
-      date: '2024-02-22'
+      airport: 'PER Airport',
+      city: 'PER',
+      time: '04:08',
+      date: '2025-09-23'
     },
     arrival: {
-      airport: 'JFK',
-      city: 'New York',
-      time: '6:55 AM',
-      date: '2024-02-22'
+      airport: 'STI Airport',
+      city: 'STI',
+      time: '05:20',
+      date: '2025-09-23'
     },
-    duration: '17h 15m (1 stop)',
-    class: 'Economy',
-    price: '$680',
-    baggage: '2 x 23kg checked, 7kg carry-on'
+    duration: '1.2 hours',
+    class: 'Chill',
+    price: '$755',
+    baggage: '1x 23kg checked bag, 1x carry-on'
   },
   accommodation: {
-    id: 'hotel_bali_001',
-    name: 'Seminyak Beach Resort & Spa',
-    type: 'Resort',
-    rating: 4.5,
-    address: 'Jl. Laksmana, Seminyak, Kuta, Badung Regency, Bali 80361, Indonesia',
-    checkIn: '2024-02-16',
-    checkOut: '2024-02-22',
-    roomType: 'Deluxe Ocean View Room',
+    id: 'accommodation_0_bangkok',
+    name: 'Grand Bangkok Hotel',
+    type: '5-Star Hotel',
+    rating: 4.8,
+    address: 'Bangkok City Center, Thailand',
+    checkIn: '2025-09-23',
+    checkOut: '2025-09-24',
+    roomType: 'Deluxe King Room',
     guests: 2,
-    nights: 6,
-    pricePerNight: '$85',
-    totalPrice: '$510',
+    nights: 1,
+    pricePerNight: '$350',
+    totalPrice: '$350',
     amenities: [
       'Free WiFi',
       'Swimming Pool',
-      'Spa Services',
-      'Beach Access',
-      'Restaurant & Bar',
+      'Spa & Wellness',
       'Fitness Center',
+      'Restaurant',
       'Room Service',
-      'Airport Shuttle'
+      'Concierge',
+      'Valet Parking'
     ]
   },
   inclusions: [
-    'Round-trip flights (Economy class)',
-    '6 nights accommodation with breakfast',
+    'Round-trip flights as specified',
+    '1 nights accommodation at Grand Bangkok Hotel',
     'Airport transfers',
-    'Temple tour with guide',
-    'Balinese cooking class',
-    '90-minute spa treatment',
-    'Travel insurance',
-    '24/7 customer support'
+    '24/7 customer support',
+    'Travel insurance coverage',
+    'Temple hopping',
+    'Floating markets',
+    'Thai cooking class',
+    'Tuk-tuk tours',
+    'River cruise',
+    'Digital travel guide',
+    'Emergency contact support'
   ],
   terms: [
-    'Valid passport required (6+ months)',
-    'Visa on arrival available for most countries',
-    'Full payment required within 24 hours',
-    'Cancellation: 50% refund if cancelled 7+ days before travel',
-    'Travel insurance included, additional coverage available',
-    'Prices subject to availability and currency fluctuations'
+    'Booking must be confirmed within 24 hours',
+    'Cancellation allowed up to 48 hours before departure',
+    'Changes may incur additional fees',
+    'Valid passport required for international travel',
+    'Terms and conditions apply',
+    'Travel insurance is included but additional coverage recommended'
   ]
 };
 
 const detailedItinerary = [
   {
     day: 1,
-    date: '2024-02-16',
-    title: 'Arrival Day',
+    date: '2025-09-22',
+    title: 'Departure Day',
     activities: [
-      { time: '11:45 PM', description: 'Arrive at Ngurah Rai International Airport (DPS)', location: 'Denpasar' },
-      { time: '12:30 AM', description: 'Airport transfer to hotel', location: 'In Transit' },
-      { time: '1:30 AM', description: 'Check-in at Seminyak Beach Resort & Spa', location: 'Seminyak' }
+      { time: '7:38 PM', description: 'Departure from GIO Airport on Delta Air Lines DL9012', location: 'GIO Airport' },
+      { time: '8:00 PM', description: 'Flight takes off - Bangkok adventure begins!', location: 'In Flight' }
     ]
   },
   {
     day: 2,
-    date: '2024-02-17',
-    title: 'Seminyak Beach & Welcome',
+    date: '2025-09-23',
+    title: 'Bangkok Explorer Adventure',
     activities: [
-      { time: '8:00 AM', description: 'Welcome breakfast at hotel', location: 'Hotel Restaurant' },
-      { time: '10:00 AM', description: 'Beach relaxation and swimming', location: 'Seminyak Beach' },
-      { time: '1:00 PM', description: 'Lunch at beachfront restaurant', location: 'Seminyak' },
-      { time: '4:00 PM', description: 'Hotel spa treatment (90 minutes)', location: 'Hotel Spa' },
-      { time: '7:00 PM', description: 'Sunset dinner at Potato Head Beach Club', location: 'Seminyak' }
+      { time: '12:31 PM', description: 'Arrive at ANG Airport in Bangkok', location: 'ANG Airport' },
+      { time: '1:30 PM', description: 'Airport transfer to Grand Bangkok Hotel', location: 'In Transit' },
+      { time: '2:30 PM', description: 'Check-in and welcome refreshments', location: 'Grand Bangkok Hotel' },
+      { time: '3:30 PM', description: 'Visit Grand Palace and Wat Pho Temple', location: 'Grand Palace' },
+      { time: '5:00 PM', description: 'Explore temple grounds and take photos', location: 'Wat Pho' },
+      { time: '6:30 PM', description: 'Traditional Thai dinner with cultural show', location: 'Local Restaurant' },
+      { time: '8:30 PM', description: 'Chao Phraya River cruise with city lights', location: 'Chao Phraya River' },
+      { time: '10:00 PM', description: 'Return to hotel and rest', location: 'Grand Bangkok Hotel' }
     ]
   },
   {
     day: 3,
-    date: '2024-02-18',
-    title: 'Ubud Cultural Experience',
+    date: '2025-09-24',
+    title: 'Markets & Departure',
     activities: [
-      { time: '7:00 AM', description: 'Early breakfast and checkout for day trip', location: 'Hotel' },
-      { time: '8:00 AM', description: 'Drive to Ubud (1.5 hours)', location: 'In Transit' },
-      { time: '10:00 AM', description: 'Visit Sacred Monkey Forest Sanctuary', location: 'Ubud' },
-      { time: '12:00 PM', description: 'Traditional Balinese lunch', location: 'Ubud Village' },
-      { time: '2:00 PM', description: 'Tegallalang Rice Terraces tour', location: 'Tegallalang' },
-      { time: '4:00 PM', description: 'Visit local art market', location: 'Ubud Market' },
-      { time: '6:00 PM', description: 'Return to Seminyak', location: 'In Transit' }
-    ]
-  },
-  {
-    day: 4,
-    date: '2024-02-19',
-    title: 'Temple Tours & Culture',
-    activities: [
-      { time: '8:00 AM', description: 'Breakfast at hotel', location: 'Hotel' },
-      { time: '9:00 AM', description: 'Visit Tanah Lot Temple', location: 'Tanah Lot' },
-      { time: '11:30 AM', description: 'Explore temple grounds and take photos', location: 'Tanah Lot' },
-      { time: '1:00 PM', description: 'Traditional Indonesian lunch', location: 'Local Restaurant' },
-      { time: '3:00 PM', description: 'Visit Uluwatu Temple', location: 'Uluwatu' },
-      { time: '6:00 PM', description: 'Kecak Fire Dance performance', location: 'Uluwatu' },
-      { time: '8:00 PM', description: 'Seafood dinner with ocean view', location: 'Jimbaran Beach' }
-    ]
-  },
-  {
-    day: 5,
-    date: '2024-02-20',
-    title: 'Cooking Class & Relaxation',
-    activities: [
-      { time: '8:00 AM', description: 'Breakfast at hotel', location: 'Hotel' },
-      { time: '9:30 AM', description: 'Balinese cooking class (4 hours)', location: 'Cooking School' },
-      { time: '9:45 AM', description: 'Visit traditional market with chef', location: 'Local Market' },
-      { time: '11:00 AM', description: 'Hands-on cooking experience', location: 'Cooking School' },
-      { time: '1:30 PM', description: 'Enjoy the meal you prepared', location: 'Cooking School' },
-      { time: '3:00 PM', description: 'Return to hotel for relaxation', location: 'Hotel' },
-      { time: '5:00 PM', description: 'Free time at hotel pool and beach', location: 'Hotel' },
-      { time: '7:30 PM', description: 'Farewell dinner with traditional dance', location: 'Cultural Restaurant' }
-    ]
-  },
-  {
-    day: 6,
-    date: '2024-02-21',
-    title: 'Last Day & Shopping',
-    activities: [
-      { time: '8:00 AM', description: 'Final breakfast at hotel', location: 'Hotel' },
-      { time: '10:00 AM', description: 'Last-minute shopping in Seminyak', location: 'Seminyak Village' },
-      { time: '12:00 PM', description: 'Lunch at favorite local spot', location: 'Seminyak' },
-      { time: '2:00 PM', description: 'Final beach time and relaxation', location: 'Seminyak Beach' },
-      { time: '4:00 PM', description: 'Pack and prepare for departure', location: 'Hotel' },
-      { time: '6:00 PM', description: 'Check-out and dinner', location: 'Hotel' },
-      { time: '8:00 PM', description: 'Last evening in Bali - sunset viewing', location: 'Beach' }
-    ]
-  },
-  {
-    day: 7,
-    date: '2024-02-22',
-    title: 'Departure Day',
-    activities: [
-      { time: '10:00 PM', description: 'Airport transfer (3 hours before flight)', location: 'In Transit' },
-      { time: '11:00 PM', description: 'Check-in for return flight', location: 'DPS Airport' },
-      { time: '12:40 AM', description: 'Departure to New York', location: 'DPS Airport' }
+      { time: '7:00 AM', description: 'Early breakfast at hotel', location: 'Hotel Restaurant' },
+      { time: '8:00 AM', description: 'Visit Chatuchak Weekend Market', location: 'Chatuchak Market' },
+      { time: '9:30 AM', description: 'Floating market tour and shopping', location: 'Floating Market' },
+      { time: '11:00 AM', description: 'Thai cooking class experience', location: 'Cooking School' },
+      { time: '1:00 PM', description: 'Enjoy the meal you prepared', location: 'Cooking School' },
+      { time: '2:30 PM', description: 'Tuk-tuk tour around old Bangkok', location: 'Bangkok Old City' },
+      { time: '4:08 AM', description: 'Departure from PER Airport on DL8117', location: 'PER Airport' },
+      { time: '5:20 AM', description: 'Arrive at STI Airport - Bangkok adventure complete!', location: 'STI Airport' }
     ]
   }
 ];
@@ -511,19 +465,15 @@ export default function TripDetails() {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span>Flights (Round-trip)</span>
-                    <span>$1,360</span>
+                    <span>$1,892</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Accommodation (6 nights)</span>
+                    <span>Accommodation (1 night)</span>
                     <span>{tripDetails.accommodation.totalPrice}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Activities & Tours</span>
-                    <span>$240</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Travel Insurance</span>
-                    <span>$89</span>
+                    <span>$150</span>
                   </div>
                   <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                     <span>Total</span>
@@ -573,7 +523,7 @@ export default function TripDetails() {
         {activeTab === 'itinerary' && (
           <div className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">7-Day Bali Adventure</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">2-Day Bangkok Explorer</h2>
               <p className="text-gray-600">Complete day-by-day itinerary with timings and locations</p>
             </div>
 
@@ -587,7 +537,7 @@ export default function TripDetails() {
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold">{day.day}</div>
-                      <div className="text-sm text-indigo-100">of 7</div>
+                      <div className="text-sm text-indigo-100">of 3</div>
                     </div>
                   </div>
                 </div>
