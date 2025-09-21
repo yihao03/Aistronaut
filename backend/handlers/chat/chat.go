@@ -33,7 +33,7 @@ func ChatHandler(c *gin.Context) {
 	fmt.Printf("Trip found: %+v\n", &trip)
 
 	if CheckDetailsComplete(&trip) {
-		getRequirements(c, &trip)
+		getRequirements(c, &trip, body)
 		return
 	}
 }
