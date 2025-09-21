@@ -1,7 +1,9 @@
 // src/hooks/useApiChat.ts
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { chatApiService, ChatResponse, TravelOption, BookingDetails } from '../services/chatApi';
+import { chatApiService, LegacyChatResponse, TravelOption, BookingDetails, TripObject } from '../services/chatApi';
+import { conversationStorage } from '../lib/conversation';
+import { useAuth } from '../contexts/AuthContext';
 
 export interface ApiMessage {
   id: string;
@@ -10,6 +12,7 @@ export interface ApiMessage {
   timestamp: Date;
   options?: TravelOption[];
   bookingDetails?: BookingDetails;
+  tripData?: TripObject;
   metadata?: {
     confidence: number;
     intent: string;
@@ -24,25 +27,91 @@ export interface ChatError {
 }
 
 export function useApiChat() {
-  const [messages, setMessages] = useState<ApiMessage[]>([
-    {
-      id: '1',
-      text: 'Hello! I\'m your AI travel assistant powered by our advanced backend system. 🤖✈️\n\nI can help you:\n• Find personalized travel packages\n• Compare prices and options\n• Plan detailed itineraries\n• Answer travel questions\n\n💡 **Try asking**: "Show me travel packages" or "What are my options for a beach vacation?"',
-      sender: 'bot',
-      timestamp: new Date(),
-      metadata: {
-        confidence: 1.0,
-        intent: 'greeting'
-      }
-    }
-  ]);
-
+  const { isAuthenticated, user } = useAuth();
+  const [messages, setMessages] = useState<ApiMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ChatError | null>(null);
-  const [conversationId] = useState('conv_' + Date.now());
+  const [conversationId, setConversationId] = useState<string | null>(null);
   const [isProcessingBooking, setIsProcessingBooking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Initialize conversation when authenticated
+  useEffect(() => {
+    if (isAuthenticated && !conversationId) {
+      initializeConversation();
+    } else if (!isAuthenticated) {
+      // Show authentication required message
+      setMessages([
+        {
+          id: 'auth_required',
+          text: '🔒 **Authentication Required**\n\nPlease sign in to start chatting with your AI travel assistant. Once signed in, I can help you:\n\n• Find personalized travel packages\n• Compare prices and options\n• Plan detailed itineraries\n• Answer travel questions',
+          sender: 'bot',
+          timestamp: new Date(),
+          metadata: {
+            confidence: 1.0,
+            intent: 'auth_required'
+          }
+        }
+      ]);
+    }
+  }, [isAuthenticated, conversationId]);
+
+  const initializeConversation = async () => {
+    try {
+      // Check for existing conversation
+      const existingConversationId = conversationStorage.getCurrentConversationId();
+      if (existingConversationId) {
+        const storedConversation = conversationStorage.getConversation(existingConversationId);
+        if (storedConversation) {
+          setConversationId(existingConversationId);
+          // Load stored messages
+          const storedMessages = storedConversation.messages.map(msg => ({
+            id: msg.id,
+            text: msg.content,
+            sender: msg.isUser ? 'user' as const : 'bot' as const,
+            timestamp: new Date(msg.timestamp),
+            tripData: msg.tripData,
+            metadata: {
+              confidence: 1.0,
+              intent: msg.isUser ? 'user_message' : 'bot_response'
+            }
+          }));
+          setMessages(storedMessages);
+          return;
+        }
+      }
+
+      // Create new conversation
+      const response = await chatApiService.createConversation();
+      const newConversationId = response.conversation_id;
+      setConversationId(newConversationId);
+      
+      // Create conversation in storage
+      conversationStorage.createConversation(newConversationId);
+      
+      // Add welcome message
+      const welcomeMessage: ApiMessage = {
+        id: 'welcome',
+        text: `Hello ${user?.username || 'there'}! 👋 I'm your AI travel assistant powered by our advanced backend system. 🤖✈️\n\nI can help you:\n• Find personalized travel packages\n• Compare prices and options\n• Plan detailed itineraries\n• Answer travel questions\n\n💡 **Try asking**: "I want to travel to Japan tomorrow alone" or "Show me beach destinations"`,
+        sender: 'bot',
+        timestamp: new Date(),
+        metadata: {
+          confidence: 1.0,
+          intent: 'greeting'
+        }
+      };
+      
+      setMessages([welcomeMessage]);
+      
+    } catch (err) {
+      console.error('Failed to initialize conversation:', err);
+      setError({
+        message: 'Failed to start conversation. Please check your connection.',
+        type: 'network'
+      });
+    }
+  };
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -60,7 +129,7 @@ export function useApiChat() {
     setMessages(prev => [...prev, message]);
   }, []);
 
-  const convertApiResponseToMessage = useCallback((response: ChatResponse): ApiMessage => {
+  const convertApiResponseToMessage = useCallback((response: LegacyChatResponse): ApiMessage => {
     return {
       id: response.id,
       text: response.message,
@@ -73,7 +142,7 @@ export function useApiChat() {
   }, []);
 
   const sendMessage = useCallback(async (message: string) => {
-    if (!message.trim() || isLoading) return;
+    if (!message.trim() || isLoading || !conversationId || !isAuthenticated) return;
 
     // Clear any previous errors
     clearError();
@@ -90,14 +159,31 @@ export function useApiChat() {
     setInputMessage('');
     setIsLoading(true);
 
+    // Store user message in conversation
+    conversationStorage.addMessage(conversationId, {
+      id: userMessage.id,
+      content: userMessage.text,
+      isUser: true,
+      timestamp: userMessage.timestamp.toISOString()
+    });
+
     try {
-      const response = await chatApiService.sendMessage({
+      const response = await chatApiService.sendLegacyMessage({
         message: message,
-        conversationId: conversationId
+        conversationId: conversationId || undefined
       });
 
       const botMessage = convertApiResponseToMessage(response);
       addMessage(botMessage);
+
+      // Store bot message in conversation
+      conversationStorage.addMessage(conversationId, {
+        id: botMessage.id,
+        content: botMessage.text,
+        isUser: false,
+        timestamp: botMessage.timestamp.toISOString(),
+        tripData: botMessage.tripData
+      });
 
     } catch (err) {
       console.error('Chat API error:', err);
@@ -134,7 +220,7 @@ export function useApiChat() {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, clearError, addMessage, conversationId, convertApiResponseToMessage]);
+  }, [isLoading, clearError, addMessage, conversationId, convertApiResponseToMessage, isAuthenticated]);
 
   const selectOption = useCallback(async (option: TravelOption) => {
     const userMessage: ApiMessage = {
@@ -154,7 +240,7 @@ export function useApiChat() {
       
       const response = await chatApiService.sendOptionSelection(option.id, {
         message: detailedMessage,
-        conversationId: conversationId
+        conversationId: conversationId || undefined
       });
 
       const botMessage = convertApiResponseToMessage(response);
@@ -241,7 +327,7 @@ export function useApiChat() {
     }
   }, [addMessage]);
 
-  const cancelBooking = useCallback(async (bookingId: string) => {
+  const cancelBooking = useCallback(async () => {
     const cancelMessage: ApiMessage = {
       id: `cancel_${Date.now()}`,
       text: `🔄 **Booking Cancelled**\n\nNo worries! Your booking has been cancelled and no charges were made.\n\n💭 Feel free to:\n• Browse other travel packages\n• Modify your preferences\n• Ask me for different recommendations\n\nI'm here to help you find the perfect trip! What would you like to explore next?`,
@@ -255,6 +341,58 @@ export function useApiChat() {
     
     addMessage(cancelMessage);
   }, [addMessage]);
+
+  const createNewConversation = useCallback(async () => {
+    if (!isAuthenticated) return;
+    
+    try {
+      setIsLoading(true);
+      
+      // Create conversation via API
+      const response = await chatApiService.createConversation();
+      const apiConversationId = response.conversation_id;
+      
+      // Create conversation in storage using API conversation ID
+      conversationStorage.createConversation(apiConversationId, 'New Trip Planning');
+      
+      // Update state
+      setConversationId(apiConversationId);
+      setMessages([]);
+      setInputMessage('');
+      clearError();
+      
+      // Add welcome message for new conversation
+      const welcomeMessage: ApiMessage = {
+        id: 'welcome_new',
+        text: `Hello ${user?.username || 'there'}! 👋 Welcome to your new conversation! \n\nI'm ready to help you plan another amazing trip. What destination are you thinking about this time?`,
+        sender: 'bot',
+        timestamp: new Date(),
+        metadata: {
+          confidence: 1.0,
+          intent: 'new_conversation_greeting'
+        }
+      };
+      
+      setMessages([welcomeMessage]);
+      
+      // Store welcome message
+      conversationStorage.addMessage(apiConversationId, {
+        id: welcomeMessage.id,
+        content: welcomeMessage.text,
+        isUser: false,
+        timestamp: welcomeMessage.timestamp.toISOString()
+      });
+      
+    } catch (err) {
+      console.error('Failed to create new conversation:', err);
+      setError({
+        message: 'Failed to create new conversation. Please try again.',
+        type: 'api'
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isAuthenticated, user, clearError, addMessage]);
 
   return {
     messages,
@@ -271,7 +409,8 @@ export function useApiChat() {
     handleKeyPress,
     confirmBooking,
     cancelBooking,
-    conversationId
+    createNewConversation,
+    conversationId: conversationId || 'not_initialized'
   };
 }
 
