@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/yihao03/Aistronaut/m/v2/handlers/chat"
 	"github.com/yihao03/Aistronaut/m/v2/handlers/flights"
 )
 
@@ -10,6 +11,7 @@ func SetupFlightRoutes(r *gin.RouterGroup) {
 	r.GET("/", flights.GetAllFlights)
 	r.GET("/search", flights.SearchFlights)
 	r.GET("/:id", flights.GetFlightByID)
+	r.POST("/select", chat.SelectFlightHandler)
 
 	// Protected routes would go here if needed (e.g., admin-only routes)
 	// protected := r.Group("/").Use(user.Authenticate())
