@@ -546,7 +546,7 @@ class SyntheticDataGenerator:
         return f"{code}{random.randint(1000, 9999)}"
 
     def generate_random_datetime(self, start_date: datetime, end_date: datetime) -> str:
-        """Generate a random datetime between start and end dates."""
+        """Generate a random datetime between start and end dates in ISO format."""
         time_between = end_date - start_date
         days_between = time_between.days
         random_days = random.randint(0, days_between)
@@ -555,7 +555,7 @@ class SyntheticDataGenerator:
         random_minute = random.choice([0, 15, 30, 45])
         return (
             random_date + timedelta(hours=random_hour, minutes=random_minute)
-        ).strftime("%Y-%m-%d %H:%M:%S")
+        ).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     def generate_flight_duration(self) -> int:
         """Generate flight duration in minutes."""
@@ -614,9 +614,9 @@ class SyntheticDataGenerator:
             departure_time = self.generate_random_datetime(start_date, end_date)
             duration = self.generate_flight_duration()
             arrival_time = (
-                datetime.strptime(departure_time, "%Y-%m-%d %H:%M:%S")
+                datetime.strptime(departure_time, "%Y-%m-%dT%H:%M:%SZ")
                 + timedelta(minutes=duration)
-            ).strftime("%Y-%m-%d %H:%M:%S")
+            ).strftime("%Y-%m-%dT%H:%M:%SZ")
 
             # Generate pricing (base price varies by distance and airline)
             base_price = random.randint(200, 2000)
@@ -649,8 +649,8 @@ class SyntheticDataGenerator:
                 "status": random.choice(
                     ["Scheduled", "On Time", "Delayed", "Cancelled", "Boarding"]
                 ),
-                "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "created_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "updated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             }
             flights.append(flight)
 
@@ -844,8 +844,8 @@ class SyntheticDataGenerator:
                 "contact_email": contact_email,
                 "images": images_json,
                 "description": description,
-                "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "created_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "updated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             }
             accommodations.append(accommodation)
 
@@ -858,9 +858,9 @@ class SyntheticDataGenerator:
             return
 
         # Create output directory if it doesn't exist
-        os.makedirs("database/generated_data", exist_ok=True)
+        os.makedirs("generated_data", exist_ok=True)
 
-        filepath = f"database/generated_data/{filename}"
+        filepath = f"generated_data/{filename}"
 
         with open(filepath, "w", newline="", encoding="utf-8") as csvfile:
             fieldnames = data[0].keys()

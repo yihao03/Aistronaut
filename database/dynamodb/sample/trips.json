@@ -15,8 +15,17 @@
                     "destination_country": {
                         "S": "United Kingdom"
                     },
-                    "destination_city": {
-                        "S": "London"
+                    "destination_cities": {
+                        "SS": [
+                            "London"
+                        ]
+                    },
+                    "landmarks": {
+                        "SS": [
+                            "Big Ben",
+                            "Tower Bridge",
+                            "British Museum"
+                        ]
                     },
                     "start_date": {
                         "S": "2025-02-15T00:00:00Z"
@@ -54,11 +63,8 @@
                     "notes": {
                         "S": "Need to visit 3 clients in central London"
                     },
-                    "emergency_contact_name": {
-                        "S": "Jane Doe"
-                    },
-                    "emergency_contact_phone": {
-                        "S": "+1-555-0124"
+                    "dietary_restrictions": {
+                        "S": "No specific dietary restrictions"
                     },
                     "created_at": {
                         "S": "2025-01-27T10:00:00Z"
@@ -84,8 +90,17 @@
                     "destination_country": {
                         "S": "France"
                     },
-                    "destination_city": {
-                        "S": "Paris"
+                    "destination_cities": {
+                        "SS": [
+                            "Paris"
+                        ]
+                    },
+                    "landmarks": {
+                        "SS": [
+                            "Eiffel Tower",
+                            "Louvre Museum",
+                            "Notre-Dame Cathedral"
+                        ]
                     },
                     "start_date": {
                         "S": "2025-02-20T00:00:00Z"
@@ -123,11 +138,8 @@
                     "notes": {
                         "S": "Looking for romantic restaurants and activities"
                     },
-                    "emergency_contact_name": {
-                        "S": "Michael Wilson"
-                    },
-                    "emergency_contact_phone": {
-                        "S": "+44-20-7946-0959"
+                    "dietary_restrictions": {
+                        "S": "Vegetarian"
                     },
                     "created_at": {
                         "S": "2025-01-27T10:05:00Z"
@@ -153,8 +165,17 @@
                     "destination_country": {
                         "S": "Japan"
                     },
-                    "destination_city": {
-                        "S": "Tokyo"
+                    "destination_cities": {
+                        "SS": [
+                            "Tokyo"
+                        ]
+                    },
+                    "landmarks": {
+                        "SS": [
+                            "Tokyo Tower",
+                            "Senso-ji Temple",
+                            "Shibuya Crossing"
+                        ]
                     },
                     "start_date": {
                         "S": "2025-02-25T00:00:00Z"
@@ -192,11 +213,8 @@
                     "notes": {
                         "S": "First time visiting Japan, interested in temples and food"
                     },
-                    "emergency_contact_name": {
-                        "S": "Giulia Rossi"
-                    },
-                    "emergency_contact_phone": {
-                        "S": "+39-06-1234-5679"
+                    "dietary_restrictions": {
+                        "S": "Gluten-free"
                     },
                     "created_at": {
                         "S": "2025-01-27T10:10:00Z"
