@@ -1,7 +1,10 @@
 package chat
 
 import (
+	"encoding/json"
+	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/yihao03/Aistronaut/m/v2/db"
 	"github.com/yihao03/Aistronaut/m/v2/models"
@@ -32,4 +35,14 @@ func HasFlightDetails(trip *models.Trip) bool {
 	}
 
 	return booking.BookingID != ""
+}
+
+func parseResponse(response string) (*FinalResponse, error) {
+	var finalResp FinalResponse
+	responseStr := strings.TrimPrefix(response, "```json\n")
+	responseStr = strings.TrimSuffix(responseStr, "\n```")
+	if err := json.Unmarshal([]byte(responseStr), &finalResp); err != nil {
+		return nil, fmt.Errorf("failed to parse inner response: %v", err)
+	}
+	return &finalResp, nil
 }

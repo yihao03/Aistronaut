@@ -35,6 +35,9 @@ func Setup(r *gin.Engine) {
 	accommodationGroup := r.Group("/accommodations")
 	SetupAccommodationRoutes(accommodationGroup)
 
+	tripGroup := r.Group("/trip")
+	SetupTripRoutes(tripGroup)
+
 	protected := r.Group("/").Use(user.Authenticate())
 	protected.GET("/hi", func(c *gin.Context) {
 		fmt.Println("hello")

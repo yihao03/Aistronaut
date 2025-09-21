@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/yihao03/Aistronaut/m/v2/db"
+	"github.com/yihao03/Aistronaut/m/v2/handlers/flights"
 	"github.com/yihao03/Aistronaut/m/v2/models"
 	"github.com/yihao03/Aistronaut/m/v2/params/chatparams"
 	"github.com/yihao03/Aistronaut/m/v2/view/chatview"
@@ -42,12 +43,22 @@ func ChatHandler(c *gin.Context) {
 	var retRes *FinalResponse
 	var err error
 
-	if !CheckDetailsComplete(&trip) {
+	switch {
+	case !CheckDetailsComplete(&trip):
 		retRes, err = getRequirements(c, &trip, body, &chatHistories)
 		if err != nil {
 			c.JSON(500, gin.H{"error": "Failed to get requirements: " + err.Error()})
 			return
 		}
+	case HasFlightDetails(&trip):
+		// Get flights based on trip dates (assuming trip has DepartureDate and ReturnDate fields)
+		flights, err := flights.GetFlightsByDateRange(trip.StartDate, trip.EndDate)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Failed to get flights: " + err.Error()})
+			return
+		}
+
+		retRes, err = getFlight(c, &trip, body, &chatHistories, &flights)
 	}
 
 	if retRes == nil {
@@ -55,13 +66,25 @@ func ChatHandler(c *gin.Context) {
 		return
 	}
 
-	resJSON, err := json.Marshal(retRes.TripDetails)
+	reqJSON, err := json.Marshal(retRes.TripDetails)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to marshal response: " + err.Error()})
 		return
 	}
 
-	res := string(resJSON)
+	flightJSON, err := json.Marshal(retRes.FlightDetails)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to marshal response: " + err.Error()})
+		return
+	}
+
+	accomJSON, err := json.Marshal(retRes.AccomodationDetails)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to marshal response: " + err.Error()})
+		return
+	}
+
+	res := string(reqJSON)
 	currTime := models.Now()
 
 	resMsg := models.ChatHistory{
@@ -69,7 +92,8 @@ func ChatHandler(c *gin.Context) {
 		ChatID:        uuid.New().String(),
 		UserID:        body.UserID,
 		UserOrAgent:   "agent",
-		Message:       res,
+		Message:       retRes.Response,
+		JSONObject:    res,
 		Timestamp:     currTime,
 	}
 
@@ -79,11 +103,13 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	resView := chatview.ChatResponse{
-		ConversationID: body.ChatHistoryID,
-		Content:        retRes.Response,
-		Object:         res,
-		CreatedAt:      currTime.ToString(),
-		IsUser:         false,
+		ConversationID:      body.ChatHistoryID,
+		Content:             retRes.Response,
+		Object:              res,
+		FlightObject:        string(flightJSON),
+		AccommodationObject: string(accomJSON),
+		CreatedAt:           currTime.ToString(),
+		IsUser:              false,
 	}
 
 	c.JSON(200, resView)

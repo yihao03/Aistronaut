@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
@@ -22,6 +21,7 @@ type LambdaPayload struct {
 	UserCountry     string `json:"user_country"`
 	ExistingContext string `json:"existing_context"`
 	ChatHistory     string `json:"chat_history"`
+	FlightOptions   string `json:"flight_options,omitempty"`
 }
 
 type LambdaRequest struct {
@@ -29,8 +29,10 @@ type LambdaRequest struct {
 }
 
 type FinalResponse struct {
-	TripDetails models.Trip `json:"trip_details"`
-	Response    string      `json:"response"`
+	FlightDetails       models.FlightBookings        `json:"flight_details"`
+	TripDetails         models.Trip                  `json:"trip_details"`
+	AccomodationDetails models.AccommodationBookings `json:"accomodation_details"`
+	Response            string                       `json:"response"`
 }
 
 type BodyResponse struct {
@@ -80,7 +82,6 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 	if err != nil {
 		return nil, fmt.Errorf("failed to invoke Lambda function: %v", err)
 	}
-	fmt.Printf("Lambda output: %s\n", string(output.Payload))
 
 	// Parse the Lambda response
 	var lambdaResp LambdaResponse
@@ -95,10 +96,8 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 	}
 
 	// Parse the inner response JSON string
-	var finalResp FinalResponse
-	responseStr := strings.TrimPrefix(bodyResp.Response, "```json\n")
-	responseStr = strings.TrimSuffix(responseStr, "\n```")
-	if err := json.Unmarshal([]byte(responseStr), &finalResp); err != nil {
+	finalResp, err := parseResponse(bodyResp.Response)
+	if err != nil {
 		return nil, fmt.Errorf("failed to parse inner response: %v", err)
 	}
 
@@ -132,5 +131,5 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 		}
 	}
 
-	return &finalResp, nil
+	return finalResp, nil
 }

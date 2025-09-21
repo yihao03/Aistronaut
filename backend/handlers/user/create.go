@@ -43,10 +43,11 @@ func Create(c *gin.Context) {
 	id := uuid.New().String()
 
 	user := model.Users{
-		UserID:   id,
-		Username: body.Username,
-		Email:    body.Email,
-		Password: string(hashedPassword),
+		UserID:      id,
+		Username:    body.Username,
+		Email:       body.Email,
+		Password:    string(hashedPassword),
+		Nationality: body.Nationality,
 	}
 
 	result := db.Create(&user)
