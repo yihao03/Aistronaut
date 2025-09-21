@@ -13,8 +13,8 @@ func Setup(r *gin.Engine) {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization", "Access-Control-Allow-Origin"},
-		AllowCredentials: true,
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		AllowCredentials: false,
 	}))
 
 	// routes
