@@ -39,3 +39,5 @@ aws dynamodb update-item --table-name trips --key "{\"trip_id\":{\"S\":\"TRIP001
 # Method 3: Use scan with filter for small datasets (less efficient but simpler)
 echo "Alternative: Scan with filter to update trips..."
 aws dynamodb scan --table-name trips --filter-expression "trip_id = :trip_id" --expression-attribute-values "{\":trip_id\":{\"S\":\"TRIP001\"}}"
+
+aws dynamodb scan --table-name users --filter-expression "user_id = :user_id" --expression-attribute-values "{\":user_id\":{\"S\":\"89304a96-cf18-481a-bbfa-cb47c31e7a39\"}}"

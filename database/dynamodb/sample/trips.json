@@ -16,205 +16,188 @@
                         "S": "United Kingdom"
                     },
                     "destination_cities": {
-                        "SS": [
-                            "London"
-                        ]
+                        "S": "London,Manchester"
                     },
                     "landmarks": {
-                        "SS": [
-                            "Big Ben",
-                            "Tower Bridge",
-                            "British Museum"
-                        ]
-                    },
-                    "start_date": {
-                        "S": "2025-02-15T00:00:00Z"
-                    },
-                    "end_date": {
-                        "S": "2025-02-20T00:00:00Z"
-                    },
-                    "total_budget": {
-                        "N": "2000"
-                    },
-                    "trip_status": {
-                        "S": "Confirmed"
-                    },
-                    "number_of_travelers": {
-                        "N": "1"
-                    },
-                    "adults_count": {
-                        "N": "1"
-                    },
-                    "children_count": {
-                        "N": "0"
-                    },
-                    "infants_count": {
-                        "N": "0"
-                    },
-                    "trip_type": {
-                        "S": "Business"
-                    },
-                    "purpose": {
-                        "S": "Client meetings and conference"
-                    },
-                    "notes": {
-                        "S": "Need to visit 3 clients in central London"
-                    },
-                    "dietary_restrictions": {
-                        "S": "No specific dietary restrictions"
-                    },
-                    "created_at": {
-                        "S": "2025-01-27T10:00:00Z"
-                    },
-                    "updated_at": {
-                        "S": "2025-01-27T10:00:00Z"
+                        "S": "Big Ben,Tower Bridge,British Museum"
                     }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "trip_id": {
-                        "S": "TRIP002"
-                    },
-                    "user_id": {
-                        "S": "USR002"
-                    },
-                    "trip_name": {
-                        "S": "Romantic Paris Getaway"
-                    },
-                    "destination_country": {
-                        "S": "France"
-                    },
-                    "destination_cities": {
-                        "SS": [
-                            "Paris"
-                        ]
-                    },
-                    "landmarks": {
-                        "SS": [
-                            "Eiffel Tower",
-                            "Louvre Museum",
-                            "Notre-Dame Cathedral"
-                        ]
-                    },
-                    "start_date": {
-                        "S": "2025-02-20T00:00:00Z"
-                    },
-                    "end_date": {
-                        "S": "2025-02-25T00:00:00Z"
-                    },
-                    "total_budget": {
-                        "N": "5000"
-                    },
-                    "trip_status": {
-                        "S": "Confirmed"
-                    },
-                    "number_of_travelers": {
-                        "N": "2"
-                    },
-                    "adults_count": {
-                        "N": "2"
-                    },
-                    "children_count": {
-                        "N": "0"
-                    },
-                    "infants_count": {
-                        "N": "0"
-                    },
-                    "trip_type": {
-                        "S": "Leisure"
-                    },
-                    "purpose": {
-                        "S": "Anniversary celebration"
-                    },
-                    "notes": {
-                        "S": "Looking for romantic restaurants and activities"
-                    },
-                    "dietary_restrictions": {
-                        "S": "Vegetarian"
-                    },
-                    "created_at": {
-                        "S": "2025-01-27T10:05:00Z"
-                    },
-                    "updated_at": {
-                        "S": "2025-01-27T10:05:00Z"
-                    }
-                }
-            }
-        },
-        {
-            "PutRequest": {
-                "Item": {
-                    "trip_id": {
-                        "S": "TRIP003"
-                    },
-                    "user_id": {
-                        "S": "USR003"
-                    },
-                    "trip_name": {
-                        "S": "Tokyo Adventure"
-                    },
-                    "destination_country": {
-                        "S": "Japan"
-                    },
-                    "destination_cities": {
-                        "SS": [
-                            "Tokyo"
-                        ]
-                    },
-                    "landmarks": {
-                        "SS": [
-                            "Tokyo Tower",
-                            "Senso-ji Temple",
-                            "Shibuya Crossing"
-                        ]
-                    },
-                    "start_date": {
-                        "S": "2025-02-25T00:00:00Z"
-                    },
-                    "end_date": {
-                        "S": "2025-03-05T00:00:00Z"
-                    },
-                    "total_budget": {
-                        "N": "3000"
-                    },
-                    "trip_status": {
-                        "S": "Planning"
-                    },
-                    "number_of_travelers": {
-                        "N": "1"
-                    },
-                    "adults_count": {
-                        "N": "1"
-                    },
-                    "children_count": {
-                        "N": "0"
-                    },
-                    "infants_count": {
-                        "N": "0"
-                    },
-                    "trip_type": {
-                        "S": "Leisure"
-                    },
-                    "purpose": {
-                        "S": "Cultural exploration and sightseeing"
-                    },
-                    "notes": {
-                        "S": "First time visiting Japan, interested in temples and food"
-                    },
-                    "dietary_restrictions": {
-                        "S": "Gluten-free"
-                    },
-                    "created_at": {
-                        "S": "2025-01-27T10:10:00Z"
-                    },
-                    "updated_at": {
-                        "S": "2025-01-27T10:10:00Z"
-                    }
+                },
+                "start_date": {
+                    "S": "2025-02-15T00:00:00Z"
+                },
+                "end_date": {
+                    "S": "2025-02-20T00:00:00Z"
+                },
+                "total_budget": {
+                    "N": "2000"
+                },
+                "trip_status": {
+                    "S": "Confirmed"
+                },
+                "number_of_travelers": {
+                    "N": "1"
+                },
+                "adults_count": {
+                    "N": "1"
+                },
+                "children_count": {
+                    "N": "0"
+                },
+                "infants_count": {
+                    "N": "0"
+                },
+                "trip_type": {
+                    "S": "Business"
+                },
+                "purpose": {
+                    "S": "Client meetings and conference"
+                },
+                "notes": {
+                    "S": "Need to visit 3 clients in central London"
+                },
+                "dietary_restrictions": {
+                    "S": "No specific dietary restrictions"
+                },
+                "created_at": {
+                    "S": "2025-01-27T10:00:00Z"
+                },
+                "updated_at": {
+                    "S": "2025-01-27T10:00:00Z"
                 }
             }
         }
-    ]
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "trip_id": {
+                    "S": "TRIP002"
+                },
+                "user_id": {
+                    "S": "USR002"
+                },
+                "trip_name": {
+                    "S": "Romantic Paris Getaway"
+                },
+                "destination_country": {
+                    "S": "France"
+                },
+                "destination_cities": {
+                    "S": "Paris,Versailles"
+                },
+                "landmarks": {
+                    "S": "Eiffel Tower,Louvre Museum,Notre-Dame Cathedral"
+                },
+                "start_date": {
+                    "S": "2025-02-20T00:00:00Z"
+                },
+                "end_date": {
+                    "S": "2025-02-25T00:00:00Z"
+                },
+                "total_budget": {
+                    "N": "5000"
+                },
+                "trip_status": {
+                    "S": "Confirmed"
+                },
+                "number_of_travelers": {
+                    "N": "2"
+                },
+                "adults_count": {
+                    "N": "2"
+                },
+                "children_count": {
+                    "N": "0"
+                },
+                "infants_count": {
+                    "N": "0"
+                },
+                "trip_type": {
+                    "S": "Leisure"
+                },
+                "purpose": {
+                    "S": "Anniversary celebration"
+                },
+                "notes": {
+                    "S": "Looking for romantic restaurants and activities"
+                },
+                "dietary_restrictions": {
+                    "S": "Vegetarian"
+                },
+                "created_at": {
+                    "S": "2025-01-27T10:05:00Z"
+                },
+                "updated_at": {
+                    "S": "2025-01-27T10:05:00Z"
+                }
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "trip_id": {
+                    "S": "TRIP003"
+                },
+                "user_id": {
+                    "S": "USR003"
+                },
+                "trip_name": {
+                    "S": "Tokyo Adventure"
+                },
+                "destination_country": {
+                    "S": "Japan"
+                },
+                "destination_cities": {
+                    "S": "Tokyo,Kyoto,Osaka"
+                },
+                "landmarks": {
+                    "S": "Tokyo Tower,Senso-ji Temple,Shibuya Crossing"
+                },
+                "start_date": {
+                    "S": "2025-02-25T00:00:00Z"
+                },
+                "end_date": {
+                    "S": "2025-03-05T00:00:00Z"
+                },
+                "total_budget": {
+                    "N": "3000"
+                },
+                "trip_status": {
+                    "S": "Planning"
+                },
+                "number_of_travelers": {
+                    "N": "1"
+                },
+                "adults_count": {
+                    "N": "1"
+                },
+                "children_count": {
+                    "N": "0"
+                },
+                "infants_count": {
+                    "N": "0"
+                },
+                "trip_type": {
+                    "S": "Leisure"
+                },
+                "purpose": {
+                    "S": "Cultural exploration and sightseeing"
+                },
+                "notes": {
+                    "S": "First time visiting Japan, interested in temples and food"
+                },
+                "dietary_restrictions": {
+                    "S": "Gluten-free"
+                },
+                "created_at": {
+                    "S": "2025-01-27T10:10:00Z"
+                },
+                "updated_at": {
+                    "S": "2025-01-27T10:10:00Z"
+                }
+            }
+        }
+    }
+]
 }

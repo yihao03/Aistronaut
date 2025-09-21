@@ -7,6 +7,7 @@ echo "Creating DynamoDB tables for Aistronaut Travel Booking System (On-Demand B
 
 # Table 0: user
 echo "Creating user table..."
+aws dynamodb delete-table --table-name users
 aws dynamodb create-table ^
     --table-name users ^
     --attribute-definitions ^
@@ -22,6 +23,7 @@ aws dynamodb create-table ^
 
 # Table 1: user_preferences
 echo "Creating user_preferences table..."
+aws dynamodb delete-table --table-name user_preferences
 aws dynamodb create-table ^
     --table-name user_preferences ^
     --attribute-definitions ^
@@ -34,6 +36,7 @@ aws dynamodb create-table ^
 
 # Table 2: chat_history
 echo "Creating chat_history table..."
+aws dynamodb delete-table --table-name chat_history
 aws dynamodb create-table ^
     --table-name chat_history ^
     --attribute-definitions ^
@@ -49,6 +52,7 @@ aws dynamodb create-table ^
 
 # Table 3: flights
 echo "Creating flights table..."
+aws dynamodb delete-table --table-name flights
 aws dynamodb create-table ^
     --table-name flights ^
     --attribute-definitions ^
@@ -61,6 +65,7 @@ aws dynamodb create-table ^
 
 # Table 4: flight_bookings
 echo "Creating flight_bookings table..."
+aws dynamodb delete-table --table-name flight_bookings
 aws dynamodb create-table ^
     --table-name flight_bookings ^
     --attribute-definitions ^
@@ -76,6 +81,7 @@ aws dynamodb create-table ^
 
 # Table 5: trip
 echo "Creating trip table..."
+aws dynamodb delete-table --table-name trips
 aws dynamodb create-table ^
     --table-name trips ^
     --attribute-definitions ^
@@ -91,6 +97,7 @@ aws dynamodb create-table ^
 
 # Table 6: accommodations
 echo "Creating accommodations table..."
+aws dynamodb delete-table --table-name accommodations
 aws dynamodb create-table ^
     --table-name accommodations ^
     --attribute-definitions ^
@@ -103,6 +110,7 @@ aws dynamodb create-table ^
 
 # Table 7: accommodation_bookings
 echo "Creating accommodation_bookings table..."
+aws dynamodb delete-table --table-name accommodation_bookings
 aws dynamodb create-table ^
     --table-name accommodation_bookings ^
     --attribute-definitions ^
