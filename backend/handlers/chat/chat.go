@@ -84,17 +84,18 @@ func ChatHandler(c *gin.Context) {
 		return
 	}
 
-	res := string(reqJSON)
 	currTime := models.Now()
 
 	resMsg := models.ChatHistory{
-		ChatHistoryID: model.ChatHistoryID,
-		ChatID:        uuid.New().String(),
-		UserID:        body.UserID,
-		UserOrAgent:   "agent",
-		Message:       retRes.Response,
-		JSONObject:    res,
-		Timestamp:     currTime,
+		ChatHistoryID:       model.ChatHistoryID,
+		ChatID:              uuid.New().String(),
+		UserID:              body.UserID,
+		UserOrAgent:         "agent",
+		Message:             retRes.Response,
+		ReqObject:           string(reqJSON),
+		FlightObject:        string(flightJSON),
+		AccommodationObject: string(accomJSON),
+		Timestamp:           currTime,
 	}
 
 	if err := db.Create(&resMsg).Error; err != nil {
@@ -105,7 +106,7 @@ func ChatHandler(c *gin.Context) {
 	resView := chatview.ChatResponse{
 		ConversationID:      body.ChatHistoryID,
 		Content:             retRes.Response,
-		Object:              res,
+		Object:              string(reqJSON),
 		FlightObject:        string(flightJSON),
 		AccommodationObject: string(accomJSON),
 		CreatedAt:           currTime.ToString(),

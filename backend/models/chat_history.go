@@ -5,13 +5,15 @@ import (
 )
 
 type ChatHistory struct {
-	ChatHistoryID string `gorm:"column:chat_history_id"`
-	ChatID        string `gorm:"column:chat_id"`
-	UserID        string
-	UserOrAgent   string
-	Message       string
-	JSONObject    string
-	Timestamp     RFC3339Time `gorm:"autoCreateTime;primaryKey"`
+	ChatHistoryID       string `gorm:"column:chat_history_id"`
+	ChatID              string `gorm:"column:chat_id"`
+	UserID              string
+	UserOrAgent         string
+	Message             string
+	ReqObject           string
+	FlightObject        string
+	AccommodationObject string
+	Timestamp           RFC3339Time `gorm:"autoCreateTime;primaryKey"`
 }
 
 func (ChatHistory) TableName() string {
