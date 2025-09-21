@@ -12,7 +12,7 @@
                     "email": {
                         "S": "john.doe@email.com"
                     },
-                    "encrypted_password": {
+                    "password": {
                         "S": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4Kz8K2"
                     },
                     "first_name": {
@@ -38,6 +38,9 @@
                     },
                     "updated_at": {
                         "S": "2025-01-27T10:00:00Z"
+                    },
+                    "deleted_at": {
+                        "NULL": true
                     }
                 }
             }
@@ -54,7 +57,7 @@
                     "email": {
                         "S": "sarah.wilson@email.com"
                     },
-                    "encrypted_password": {
+                    "password": {
                         "S": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4Kz8K2"
                     },
                     "first_name": {
@@ -80,6 +83,9 @@
                     },
                     "updated_at": {
                         "S": "2025-01-27T10:05:00Z"
+                    },
+                    "deleted_at": {
+                        "NULL": true
                     }
                 }
             }
@@ -96,7 +102,7 @@
                     "email": {
                         "S": "marco.rossi@email.com"
                     },
-                    "encrypted_password": {
+                    "password": {
                         "S": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4Kz8K2"
                     },
                     "first_name": {
@@ -122,6 +128,9 @@
                     },
                     "updated_at": {
                         "S": "2025-01-27T10:10:00Z"
+                    },
+                    "deleted_at": {
+                        "NULL": true
                     }
                 }
             }

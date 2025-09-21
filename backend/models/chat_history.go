@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type ChatHistory struct {
 	ChatHistoryID string `gorm:"column:chat_history_id"`
 	ChatID        string `gorm:"column:chat_id"`
@@ -7,7 +9,7 @@ type ChatHistory struct {
 	UserOrAgent   string
 	Message       string
 	JSONObject    string
-	Timestamp     string
+	Timestamp     time.Time `gorm:"autoCreateTime;primaryKey"`
 }
 
 func (ChatHistory) TableName() string {
