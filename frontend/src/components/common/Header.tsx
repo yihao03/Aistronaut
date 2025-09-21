@@ -9,6 +9,7 @@ export default function Header() {
           <Link to="/">Aistronaut</Link>
         </div>
         <div className="space-x-4">
+          <Link to="/my-trips" className="hover:text-indigo-600">My Trips</Link>
           <Link to="/signin" className="hover:text-indigo-600">Sign In</Link>
           <Link to="/register" className="hover:text-indigo-600">Register</Link>
         </div>

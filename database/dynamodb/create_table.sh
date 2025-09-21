@@ -16,8 +16,8 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=user_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=username-index,KeySchema='[{AttributeName=username,KeyType=HASH}]',Projection='{ProjectionType=ALL}' \
-        IndexName=email-index,KeySchema='[{AttributeName=email,KeyType=HASH}]',Projection='{ProjectionType=ALL}' \
+        IndexName=username-index,KeySchema=[{AttributeName=username,KeyType=HASH}],Projection={ProjectionType=ALL} \
+        IndexName=email-index,KeySchema=[{AttributeName=email,KeyType=HASH}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 1: user_preferences
@@ -30,7 +30,7 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=preference_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=user_id-index,KeySchema='[{AttributeName=user_id,KeyType=HASH}]',Projection='{ProjectionType=ALL}' \
+        IndexName=user_id-index,KeySchema=[{AttributeName=user_id,KeyType=HASH}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 2: chat_history
@@ -44,7 +44,7 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=chat_history_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=user_id-timestamp-index,KeySchema='[{AttributeName=user_id,KeyType=HASH},{AttributeName=timestamp,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
+        IndexName=user_id-timestamp-index,KeySchema=[{AttributeName=user_id,KeyType=HASH},{AttributeName=timestamp,KeyType=RANGE}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 3: flights
@@ -60,9 +60,9 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=flight_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=flight_number-index,KeySchema='[{AttributeName=flight_number,KeyType=HASH}]',Projection='{ProjectionType=ALL}' \
-        IndexName=airline-departure-index,KeySchema='[{AttributeName=airline,KeyType=HASH},{AttributeName=departure_time,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
-        IndexName=route-departure-index,KeySchema='[{AttributeName=departure_airport,KeyType=HASH},{AttributeName=departure_time,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
+        IndexName=flight_number-index,KeySchema=[{AttributeName=flight_number,KeyType=HASH}],Projection={ProjectionType=ALL} \
+        IndexName=airline-departure-index,KeySchema=[{AttributeName=airline,KeyType=HASH},{AttributeName=departure_time,KeyType=RANGE}],Projection={ProjectionType=ALL} \
+        IndexName=route-departure-index,KeySchema=[{AttributeName=departure_airport,KeyType=HASH},{AttributeName=departure_time,KeyType=RANGE}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 4: flight_bookings
@@ -76,7 +76,7 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=booking_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=user_id-booking_date-index,KeySchema='[{AttributeName=user_id,KeyType=HASH},{AttributeName=booking_date,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
+        IndexName=user_id-booking_date-index,KeySchema=[{AttributeName=user_id,KeyType=HASH},{AttributeName=booking_date,KeyType=RANGE}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 5: trip
@@ -90,7 +90,7 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=trip_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=user_id-start_date-index,KeySchema='[{AttributeName=user_id,KeyType=HASH},{AttributeName=start_date,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
+        IndexName=user_id-start_date-index,KeySchema=[{AttributeName=user_id,KeyType=HASH},{AttributeName=start_date,KeyType=RANGE}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 6: accommodations
@@ -104,8 +104,8 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=accommodation_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=city-index,KeySchema='[{AttributeName=city,KeyType=HASH}]',Projection='{ProjectionType=ALL}' \
-        IndexName=country-city-index,KeySchema='[{AttributeName=country,KeyType=HASH},{AttributeName=city,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
+        IndexName=city-index,KeySchema=[{AttributeName=city,KeyType=HASH}],Projection={ProjectionType=ALL} \
+        IndexName=country-city-index,KeySchema=[{AttributeName=country,KeyType=HASH},{AttributeName=city,KeyType=RANGE}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 # Table 7: accommodation_bookings
@@ -119,7 +119,7 @@ aws dynamodb create-table \
     --key-schema \
         AttributeName=booking_id,KeyType=HASH \
     --global-secondary-indexes \
-        IndexName=user_id-booking_date-index,KeySchema='[{AttributeName=user_id,KeyType=HASH},{AttributeName=booking_date,KeyType=RANGE}]',Projection='{ProjectionType=ALL}' \
+        IndexName=user_id-booking_date-index,KeySchema=[{AttributeName=user_id,KeyType=HASH},{AttributeName=booking_date,KeyType=RANGE}],Projection={ProjectionType=ALL} \
     --billing-mode PAY_PER_REQUEST
 
 echo ""

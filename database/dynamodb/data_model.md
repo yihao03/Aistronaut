@@ -17,10 +17,11 @@ updated_at
 ## Table 2: user_preferences
 preference_id (PK)
 user_id (FK)
+preferred_currency
 preferred_airline
 preferred_seat_type
 preferred_class
-dietary_restrictions
+dietary_restriction
 accessibility_needs
 budget_range_min
 budget_range_max
@@ -86,11 +87,11 @@ trip_id (PK)
 user_id (FK)
 trip_name
 destination_country
-destination_city
+destination_cities
+landmarks
 start_date
 end_date
 total_budget
-current_spent
 trip_status
 number_of_travelers
 adults_count
@@ -99,8 +100,7 @@ infants_count
 trip_type
 purpose
 notes
-emergency_contact_name
-emergency_contact_phone
+dietary_restriction
 created_at
 updated_at
 
