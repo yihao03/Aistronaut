@@ -11,10 +11,11 @@ import (
 func Setup(r *gin.Engine) {
 	// setup
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:3000", "*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization", "X-Requested-With"},
 		AllowCredentials: false,
+		ExposeHeaders:    []string{"*"},
 	}))
 
 	// routes

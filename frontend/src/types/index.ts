@@ -36,3 +36,36 @@ export interface HotelResult {
   price: string
   rating: number
 }
+
+// User Authentication Types
+export interface RegisterRequest {
+  username: string
+  email: string
+  password: string
+}
+
+export interface RegisterResponse {
+  message: string
+}
+
+export interface LoginRequest {
+  email: string
+  password: string
+}
+
+export interface LoginResponse {
+  token: string
+}
+
+export interface User {
+  id: string
+  username: string
+  email: string
+  createdAt: string
+}
+
+export interface AuthError {
+  error: string
+  code?: string
+  details?: string
+}

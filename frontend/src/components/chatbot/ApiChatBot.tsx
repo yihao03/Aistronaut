@@ -1,15 +1,19 @@
 // src/components/chatbot/ApiChatBot.tsx
 
-import { Bot, Send, Wifi, WifiOff, Loader2 } from 'lucide-react';
+import { Bot, Send, Wifi, WifiOff, Loader2, LogIn } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useApiChat } from '../../hooks/useApiChat';
+import { useAuth } from '../../contexts/AuthContext';
 import ApiMessageBubble from './ApiMessageBubble';
 import ApiOptionBoxes from './ApiOptionBoxes';
 import BookingDetails from './BookingDetails';
 import TypingIndicator from './TypingIndicator';
+import NewConversationButton from './NewConversationButton';
+import { Link } from 'react-router-dom';
 
 export default function ApiChatBot() {
+  const { isAuthenticated } = useAuth();
   const {
     messages,
     inputMessage,
@@ -25,6 +29,7 @@ export default function ApiChatBot() {
     handleKeyPress,
     confirmBooking,
     cancelBooking,
+    createNewConversation,
     conversationId
   } = useApiChat();
 
@@ -52,8 +57,17 @@ export default function ApiChatBot() {
             </div>
           </div>
           
-          {/* Connection status */}
-          <div className="flex items-center space-x-2">
+          {/* Connection status and New Conversation Button */}
+          <div className="flex items-center space-x-3">
+            {/* New Conversation Button - only show when authenticated */}
+            {isAuthenticated && (
+              <NewConversationButton
+                onCreateNew={createNewConversation}
+                isLoading={isLoading}
+                disabled={isLoading || isProcessingBooking}
+              />
+            )}
+            
             {error ? (
               <div className="flex items-center text-red-200">
                 <WifiOff className="h-4 w-4 mr-1" />
@@ -148,49 +162,65 @@ export default function ApiChatBot() {
       
       {/* Chat Input */}
       <div className="border-t border-gray-200 p-4 bg-gray-50">
-        <div className="flex space-x-2">
-          <Input
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Ask about destinations, packages, prices, or anything travel-related..."
-            className="flex-1 bg-white border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-            disabled={isLoading || isProcessingBooking}
-          />
-          <Button 
-            onClick={handleSendMessage}
-            disabled={!inputMessage.trim() || isLoading || isProcessingBooking}
-            className="px-6 bg-indigo-600 hover:bg-indigo-700 text-white"
-          >
-            {isLoading || isProcessingBooking ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
-          </Button>
-        </div>
-        
-        {/* Quick suggestions */}
-        <div className="mt-2 flex flex-wrap gap-2">
-          {[
-            "Show me travel packages",
-            "Beach destinations under $1500",
-            "Cultural experiences in Asia",
-            "Adventure trips"
-          ].map((suggestion) => (
-            <button
-              key={suggestion}
-              onClick={() => {
-                setInputMessage(suggestion);
-                setTimeout(() => sendMessage(suggestion), 100);
-              }}
+        {isAuthenticated ? (
+          <div className="flex space-x-2">
+            <Input
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Ask about destinations, packages, prices, or anything travel-related..."
+              className="flex-1 bg-white border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
               disabled={isLoading || isProcessingBooking}
-              className="text-xs bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded-full hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            />
+            <Button 
+              onClick={handleSendMessage}
+              disabled={!inputMessage.trim() || isLoading || isProcessingBooking}
+              className="px-6 bg-indigo-600 hover:bg-indigo-700 text-white"
             >
-              {suggestion}
-            </button>
-          ))}
-        </div>
+              {isLoading || isProcessingBooking ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center p-4">
+            <div className="text-center">
+              <LogIn className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+              <p className="text-gray-600 mb-3">Sign in to start chatting with your AI travel assistant</p>
+              <Link to="/signin">
+                <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                  Sign In
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
+        
+        {/* Quick suggestions - only show when authenticated */}
+        {isAuthenticated && (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {[
+              "I want to travel to Japan tomorrow alone",
+              "Beach destinations under $1500",
+              "Cultural experiences in Asia",
+              "Adventure trips"
+            ].map((suggestion) => (
+              <button
+                key={suggestion}
+                onClick={() => {
+                  setInputMessage(suggestion);
+                  setTimeout(() => sendMessage(suggestion), 100);
+                }}
+                disabled={isLoading || isProcessingBooking}
+                className="text-xs bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded-full hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {suggestion}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,14 +1,17 @@
 // src/pages/Register.tsx
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Checkbox } from '@/components/ui/checkbox' // 👈 NEW — if you don’t have it, see below
+import { Checkbox } from '@/components/ui/checkbox'
 import AuthLayout from '../layouts/AuthLayout'
-import { Eye, EyeOff } from 'lucide-react' // 👈 for password toggle
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { authApiService } from '../services/authApi'
+import { RegisterRequest } from '../types'
 
 export default function Register() {
+  const navigate = useNavigate()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,11 +20,14 @@ export default function Register() {
   const [agreeTerms, setAgreeTerms] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isLoading, setIsLoading] = useState(false)
+  const [apiError, setApiError] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!fullName.trim()) newErrors.fullName = 'Full name is required'
+    if (!fullName.trim()) newErrors.fullName = 'Username is required'
     if (!email.trim()) newErrors.email = 'Email is required'
     else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Email is invalid'
     if (!password) newErrors.password = 'Password is required'
@@ -35,14 +41,37 @@ export default function Register() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!validateForm()) return
 
-    // TODO: handle real register logic (API call, Firebase, etc.)
-    alert(`🎉 Registered successfully!\nWelcome, ${fullName}!`)
-    // In real app: redirect to /home or /verify-email
+    setIsLoading(true)
+    setApiError(null)
+    setSuccessMessage(null)
+
+    try {
+      const registerData: RegisterRequest = {
+        username: fullName,
+        email,
+        password
+      }
+
+      const response = await authApiService.register(registerData)
+      
+      // Registration successful
+      setSuccessMessage(response.message || 'User created successfully')
+      
+      // Redirect to sign in page after a short delay
+      setTimeout(() => {
+        navigate('/signin')
+      }, 2000)
+      
+    } catch (error) {
+      setApiError(error instanceof Error ? error.message : 'Registration failed. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -54,10 +83,27 @@ export default function Register() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Full Name */}
+          {/* API Error Message */}
+          {apiError && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+              <p className="text-red-800 text-sm font-medium">Registration Failed</p>
+              <p className="text-red-700 text-sm mt-1">{apiError}</p>
+            </div>
+          )}
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+              <p className="text-green-800 text-sm font-medium">🎉 Registration Successful!</p>
+              <p className="text-green-700 text-sm mt-1">{successMessage}</p>
+              <p className="text-green-600 text-xs mt-1">Redirecting to sign in page...</p>
+            </div>
+          )}
+
+          {/* Username */}
           <div>
             <Label htmlFor="fullName" className="text-gray-700">
-              Full Name
+              Username
             </Label>
             <Input
               id="fullName"
@@ -96,7 +142,7 @@ export default function Register() {
           </div>
 
           {/* Phone (Optional) */}
-          <div>
+          {/* <div>
             <Label htmlFor="phone" className="text-gray-700">
               Phone (Optional)
             </Label>
@@ -111,7 +157,7 @@ export default function Register() {
             <p className="text-xs text-gray-500 mt-1">
               We’ll send booking confirmations and alerts here
             </p>
-          </div>
+          </div> */}
 
           {/* Password */}
           <div>
@@ -198,9 +244,17 @@ export default function Register() {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-6"
+            disabled={isLoading}
+            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-6 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Create Account
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating Account...
+              </>
+            ) : (
+              'Create Account'
+            )}
           </Button>
         </form>
 

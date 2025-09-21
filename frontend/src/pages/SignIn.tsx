@@ -1,20 +1,24 @@
 // src/pages/SignIn.tsx
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import AuthLayout from '../layouts/AuthLayout'
+import { authApiService } from '../services/authApi'
+import { LoginRequest } from '../types'
 
 export default function SignIn() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -33,25 +37,38 @@ export default function SignIn() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!validateForm()) return
 
     setIsLoading(true)
+    setErrors({})
+    setSuccessMessage(null)
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false)
-      if (email === 'demo@example.com' && password === 'password123') {
-        alert('✅ Signed in successfully!')
-        // In real app: redirect to /home
-      } else {
-        setErrors({
-          api: 'Invalid email or password. Please try again.',
-        })
+    try {
+      const loginData: LoginRequest = {
+        email,
+        password
       }
-    }, 1500)
+
+      const response = await authApiService.login(loginData)
+      
+      // Login successful
+      setSuccessMessage('✅ Signed in successfully!')
+      
+      // Redirect to home page after a short delay
+      setTimeout(() => {
+        navigate('/')
+      }, 1500)
+      
+    } catch (error) {
+      setErrors({
+        api: error instanceof Error ? error.message : 'Invalid email or password. Please try again.'
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -62,6 +79,14 @@ export default function SignIn() {
           <h1 className="text-3xl font-bold text-gray-800">Welcome Back</h1>
           <p className="text-gray-600 mt-2">Sign in to continue your travel planning</p>
         </div>
+
+        {/* Success Message */}
+        {successMessage && (
+          <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg">
+            <p className="text-sm text-green-700 font-medium">{successMessage}</p>
+            <p className="text-xs text-green-600 mt-1">Redirecting to home page...</p>
+          </div>
+        )}
 
         {/* Error Banner (API-level) */}
         {errors.api && (
