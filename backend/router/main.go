@@ -24,7 +24,9 @@ func Setup(r *gin.Engine) {
 
 	userGroup := r.Group("/user")
 	SetupUserRoutes(userGroup)
-	SetupChatRoutes(userGroup)
+
+	chatGroup := r.Group("/chat")
+	SetupChatRoutes(chatGroup)
 
 	protected := r.Group("/").Use(user.Authenticate())
 	protected.GET("/hi", func(c *gin.Context) {

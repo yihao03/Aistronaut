@@ -1,6 +1,7 @@
 package chat
 
 import (
+	"fmt"
 	"reflect"
 
 	"github.com/gin-gonic/gin"
@@ -26,10 +27,11 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	var trip models.Trip
-	if err := db.Find(&trip, body.ConversationID).Error; err != nil {
+	if err := db.Find(&trip, "trip_id = ?", body.ConversationID).Error; err != nil {
 		c.JSON(500, gin.H{"error": "Failed to find trip: " + err.Error()})
 		return
 	}
+	fmt.Printf("Trip found: %+v\n", &trip)
 
 	v := reflect.ValueOf(trip)
 	done := true
@@ -40,7 +42,7 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	if !done {
-		getRequirements(c)
+		getRequirements(c, &trip)
 		return
 	}
 }

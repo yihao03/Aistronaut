@@ -2,26 +2,18 @@ package chat
 
 import (
 	"encoding/json"
+	"reflect"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/gin-gonic/gin"
+	"github.com/yihao03/Aistronaut/m/v2/db"
 	"github.com/yihao03/Aistronaut/m/v2/lda"
+	"github.com/yihao03/Aistronaut/m/v2/models"
 )
 
-// Define structs for the nested JSON response
-type TripDetails struct {
-	Budget          *int     `json:"budget"`
-	Timeline        *string  `json:"timeline"`
-	Location        string   `json:"location"`
-	ModeTravel      *string  `json:"mode_travel"`
-	Pax             *int     `json:"pax"`
-	Places          []string `json:"places"`
-	MainPurpose     *string  `json:"main_purpose"`
-	DietRestriction *string  `json:"diet_restriction"`
-}
-
 type FinalResponse struct {
-	TripDetails TripDetails `json:"trip_details"`
+	TripDetails models.Trip `json:"trip_details"`
 	Response    string      `json:"response"`
 }
 
@@ -35,9 +27,9 @@ type LambdaResponse struct {
 	StatusCode int               `json:"statusCode"`
 }
 
-func getRequirements(c *gin.Context) {
+func getRequirements(c *gin.Context, trip *models.Trip) {
 	lambdaClient := lda.GetLambda()
-	payload := []byte(`{"body":{"text":"i wish to visit japan.","firstName":"Chen","chat_history":"None"}}`)
+	payload := []byte(`{"body":{"text":"i wish to visit japan.I am travelling for business.I am travelling alone","firstName":"Chen","chat_history":"None"}}`)
 
 	output, err := lambdaClient.Invoke(c.Request.Context(), &lambda.InvokeInput{
 		FunctionName: lda.PARSER,
@@ -64,8 +56,40 @@ func getRequirements(c *gin.Context) {
 
 	// Parse the inner response JSON string
 	var finalResp FinalResponse
-	if err := json.Unmarshal([]byte(bodyResp.Response), &finalResp); err != nil {
+	responseStr := strings.TrimPrefix(bodyResp.Response, "```json\n")
+	responseStr = strings.TrimSuffix(responseStr, "\n```")
+	if err := json.Unmarshal([]byte(responseStr), &finalResp); err != nil {
 		c.JSON(500, gin.H{"error": "Failed to parse inner response: " + err.Error()})
+		return
+	}
+
+	// Get settable reflect.Value for the trip pointer
+	tripValue := reflect.ValueOf(trip).Elem()
+	// tripType := tripValue.Type()
+
+	// Get reflect.Value for finalResp.TripDetails (source of updates)
+	sourceValue := reflect.ValueOf(finalResp.TripDetails)
+	sourceType := sourceValue.Type()
+
+	for i := 0; i < sourceValue.NumField(); i++ {
+		sourceField := sourceValue.Field(i)
+		sourceFieldType := sourceType.Field(i)
+
+		// Find the corresponding field in trip by name
+		tripField := tripValue.FieldByName(sourceFieldType.Name)
+		if tripField.IsValid() &&
+			tripField.CanSet() &&
+			tripField.Type() == sourceField.Type() &&
+			sourceFieldType.Name != "UserID" &&
+			sourceFieldType.Name != "TripID" {
+			// Set the field value
+			tripField.Set(sourceField)
+		}
+	}
+
+	db := db.GetDB()
+	if err := db.Save(trip).Error; err != nil {
+		c.JSON(500, gin.H{"error": "Failed to update trip: " + err.Error()})
 		return
 	}
 

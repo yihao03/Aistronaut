@@ -6,5 +6,6 @@ import (
 )
 
 func SetupChatRoutes(r *gin.RouterGroup) {
-	r.POST("/chat", chat.ChatHandler)
+	r.POST("/create", chat.CreateHandler)
+	r.POST("/", chat.ChatHandler)
 }
