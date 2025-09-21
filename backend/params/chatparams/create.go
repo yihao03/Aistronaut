@@ -8,10 +8,10 @@ import (
 )
 
 type CreateParams struct {
-	ConversationID string `json:"conversation_id"`
-	UserID         string `json:"user_id"`
-	Content        string `json:"content" binding:"required"`
-	ContentType    int32  `json:"content_type"`
+	ChatHistoryID string `json:"conversation_id"`
+	UserID        string `json:"user_id"`
+	Content       string `json:"content" binding:"required"`
+	ContentType   int32  `json:"content_type"`
 }
 
 func (p CreateParams) ToModel(userID string, object any) *models.ChatHistory {
@@ -22,9 +22,9 @@ func (p CreateParams) ToModel(userID string, object any) *models.ChatHistory {
 	}
 
 	return &models.ChatHistory{
-		ChatHistoryID: uuid.New().String(),
+		ChatHistoryID: string(p.ChatHistoryID),
 		UserID:        userID,
-		ChatID:        string(p.ConversationID),
+		ChatID:        uuid.New().String(),
 		Message:       p.Content,
 		JSONObject:    string(objectString),
 		Timestamp:     models.Now(),

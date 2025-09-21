@@ -21,6 +21,7 @@ type LambdaPayload struct {
 	Today           string `json:"today"`
 	UserCountry     string `json:"user_country"`
 	ExistingContext string `json:"existing_context"`
+	ChatHistory     string `json:"chat_history"`
 }
 
 type LambdaRequest struct {
@@ -42,7 +43,7 @@ type LambdaResponse struct {
 	StatusCode int               `json:"statusCode"`
 }
 
-func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams) (*FinalResponse, error) {
+func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams, chatHistories *[]models.ChatHistory) (*FinalResponse, error) {
 	lambdaClient := lda.GetLambda()
 	db := db.GetDB()
 
@@ -60,6 +61,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 		Today:           time.Now().Format("Monday, January 2, 2006"),
 		UserCountry:     user.Nationality,
 		ExistingContext: string(jsonString),
+		ChatHistory:     models.ChatHistories(*chatHistories).ToString(),
 	}
 
 	request := LambdaRequest{
@@ -78,8 +80,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 	if err != nil {
 		return nil, fmt.Errorf("failed to invoke Lambda function: %v", err)
 	}
-
-	fmt.Println("Lambda output:", string(output.Payload))
+	fmt.Printf("Lambda output: %s\n", string(output.Payload))
 
 	// Parse the Lambda response
 	var lambdaResp LambdaResponse

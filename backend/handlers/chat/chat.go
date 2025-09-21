@@ -28,15 +28,22 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	var trip models.Trip
-	if err := db.Find(&trip, "trip_id = ?", body.ConversationID).Error; err != nil {
+	if err := db.Find(&trip, "trip_id = ?", body.ChatHistoryID).Error; err != nil {
 		c.JSON(500, gin.H{"error": "Failed to find trip: " + err.Error()})
+		return
+	}
+
+	var chatHistories []models.ChatHistory
+	if err := db.Where("chat_history_id = ?", body.ChatHistoryID).Order("created_at asc").Find(&chatHistories).Error; err != nil {
+		c.JSON(500, gin.H{"error": "Failed to find chat histories: " + err.Error()})
 		return
 	}
 
 	var retRes *FinalResponse
 	var err error
+
 	if !CheckDetailsComplete(&trip) {
-		retRes, err = getRequirements(c, &trip, body)
+		retRes, err = getRequirements(c, &trip, body, &chatHistories)
 		if err != nil {
 			c.JSON(500, gin.H{"error": "Failed to get requirements: " + err.Error()})
 			return
@@ -72,7 +79,7 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	resView := chatview.ChatResponse{
-		ConversationID: body.ConversationID,
+		ConversationID: body.ChatHistoryID,
 		Content:        retRes.Response,
 		Object:         res,
 		CreatedAt:      currTime.ToString(),
