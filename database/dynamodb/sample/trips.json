@@ -36,9 +36,6 @@
                     "total_budget": {
                         "N": "2000"
                     },
-                    "current_spent": {
-                        "N": "650"
-                    },
                     "trip_status": {
                         "S": "Confirmed"
                     },
@@ -111,9 +108,6 @@
                     "total_budget": {
                         "N": "5000"
                     },
-                    "current_spent": {
-                        "N": "540"
-                    },
                     "trip_status": {
                         "S": "Confirmed"
                     },
@@ -185,9 +179,6 @@
                     },
                     "total_budget": {
                         "N": "3000"
-                    },
-                    "current_spent": {
-                        "N": "850"
                     },
                     "trip_status": {
                         "S": "Planning"
