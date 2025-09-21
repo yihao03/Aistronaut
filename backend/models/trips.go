@@ -2,11 +2,11 @@ package models
 
 type Trip struct {
 	TripID                string `json:"trip_id" gorm:"primaryKey"`
-	UserID                string `json:"user_id"`
+	UserID                string `json:"user_id" gorm:"index"`
 	TripName              string `json:"trip_name"`
 	DestinationCountry    string `json:"destination_country"`
 	DestinationCity       string `json:"destination_city"`
-	StartDate             string `json:"start_date"`
+	StartDate             string `json:"start_date" gorm:"primaryKey"`
 	EndDate               string `json:"end_date"`
 	TotalBudget           int    `json:"total_budget"`
 	CurrentSpent          int    `json:"current_spent"`

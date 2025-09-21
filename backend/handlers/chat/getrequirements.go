@@ -2,6 +2,7 @@ package chat
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 	"time"
@@ -15,11 +16,15 @@ import (
 )
 
 type LambdaPayload struct {
-	Text            string `json:"text"`
-	FirstName       string `json:"firstName"`
+	UserPrompt      string `json:"user_prompt"`
+	FirstName       string `json:"first_name"`
 	Today           string `json:"today"`
 	UserCountry     string `json:"user_country"`
 	ExistingContext string `json:"existing_context"`
+}
+
+type LambdaRequest struct {
+	Body LambdaPayload `json:"body"`
 }
 
 type FinalResponse struct {
@@ -37,7 +42,7 @@ type LambdaResponse struct {
 	StatusCode int               `json:"statusCode"`
 }
 
-func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams) {
+func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams) error {
 	lambdaClient := lda.GetLambda()
 	db := db.GetDB()
 
@@ -46,22 +51,24 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 
 	jsonString, err := json.Marshal(trip)
 	if err != nil {
-		c.JSON(500, gin.H{"error": "Failed to marshal trip: " + err.Error()})
-		return
+		return fmt.Errorf("failed to marshal trip: %v", err)
 	}
 
 	payload := LambdaPayload{
-		Text:            chat.Content,
+		UserPrompt:      chat.Content,
 		FirstName:       user.Username,
 		Today:           time.Now().Format("Monday, January 2, 2006"),
 		UserCountry:     user.Nationality,
 		ExistingContext: string(jsonString),
 	}
 
-	marshaledPayload, err := json.Marshal(payload)
+	request := LambdaRequest{
+		Body: payload,
+	}
+
+	marshaledPayload, err := json.Marshal(request)
 	if err != nil {
-		c.JSON(500, gin.H{"error": "Failed to marshal payload: " + err.Error()})
-		return
+		return fmt.Errorf("failed to marshal payload: %v", err)
 	}
 
 	output, err := lambdaClient.Invoke(c.Request.Context(), &lambda.InvokeInput{
@@ -69,22 +76,21 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 		Payload:      marshaledPayload,
 	})
 	if err != nil {
-		c.JSON(500, gin.H{"error": "Failed to invoke Lambda function: " + err.Error()})
-		return
+		return fmt.Errorf("failed to invoke Lambda function: %v", err)
 	}
+
+	fmt.Println("Lambda output:", string(output.Payload))
 
 	// Parse the Lambda response
 	var lambdaResp LambdaResponse
 	if err := json.Unmarshal(output.Payload, &lambdaResp); err != nil {
-		c.JSON(500, gin.H{"error": "Failed to parse Lambda response: " + err.Error()})
-		return
+		return fmt.Errorf("failed to parse Lambda response: %v", err)
 	}
 
 	// Parse the body JSON string
 	var bodyResp BodyResponse
 	if err := json.Unmarshal([]byte(lambdaResp.Body), &bodyResp); err != nil {
-		c.JSON(500, gin.H{"error": "Failed to parse body: " + err.Error()})
-		return
+		return fmt.Errorf("failed to parse body: %v", err)
 	}
 
 	// Parse the inner response JSON string
@@ -92,8 +98,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 	responseStr := strings.TrimPrefix(bodyResp.Response, "```json\n")
 	responseStr = strings.TrimSuffix(responseStr, "\n```")
 	if err := json.Unmarshal([]byte(responseStr), &finalResp); err != nil {
-		c.JSON(500, gin.H{"error": "Failed to parse inner response: " + err.Error()})
-		return
+		return fmt.Errorf("failed to parse inner response: %v", err)
 	}
 
 	// Get settable reflect.Value for the trip pointer
@@ -112,16 +117,19 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 		tripField := tripValue.FieldByName(sourceFieldType.Name)
 		if tripField.IsValid() &&
 			tripField.CanSet() &&
-			tripField.Type() == sourceField.Type() &&
-			sourceFieldType.Name != "UserID" &&
-			sourceFieldType.Name != "TripID" {
+			tripField.IsZero() &&
+			!sourceField.IsZero() &&
+			tripField.Type() == sourceField.Type() {
 			// Set the field value
 			tripField.Set(sourceField)
+
+			// Update this specific field in the database
+			fieldName := sourceFieldType.Name
+			if err := db.Model(trip).Update(fieldName, sourceField.Interface()).Error; err != nil {
+				return fmt.Errorf("failed to update field %s: %v", fieldName, err)
+			}
 		}
 	}
 
-	if err := db.Save(trip).Error; err != nil {
-		c.JSON(500, gin.H{"error": "Failed to update trip: " + err.Error()})
-		return
-	}
+	return nil
 }

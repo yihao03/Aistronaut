@@ -1,8 +1,6 @@
 package chat
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/yihao03/Aistronaut/m/v2/db"
 	"github.com/yihao03/Aistronaut/m/v2/models"
@@ -30,10 +28,12 @@ func ChatHandler(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "Failed to find trip: " + err.Error()})
 		return
 	}
-	fmt.Printf("Trip found: %+v\n", &trip)
 
-	if CheckDetailsComplete(&trip) {
-		getRequirements(c, &trip, body)
-		return
+	if !CheckDetailsComplete(&trip) {
+		err := getRequirements(c, &trip, body)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Failed to get requirements: " + err.Error()})
+			return
+		}
 	}
 }
