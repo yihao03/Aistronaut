@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type UserPreferences struct {
 	PreferenceID               string `gorm:"primaryKey"`
 	UserID                     string
@@ -13,6 +15,6 @@ type UserPreferences struct {
 	BudgetRangeMax             int
 	PreferredAccommodationType string
 	TravelStyle                string
-	CreatedAt                  string
-	UpdatedAt                  string
+	CreatedAt                  time.Time
+	UpdatedAt                  time.Time
 }

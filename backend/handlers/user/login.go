@@ -3,30 +3,15 @@ package user
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/yihao03/Aistronaut/m/v2/db"
 	model "github.com/yihao03/Aistronaut/m/v2/models"
+	"github.com/yihao03/Aistronaut/m/v2/myjwt"
 	"github.com/yihao03/Aistronaut/m/v2/params/userparams"
 	"golang.org/x/crypto/bcrypt"
 )
-
-var jwtKey = []byte("CHEN_YI_IS_GAY")
-
-// GenerateJWTToken creates a JWT token for the given user
-func GenerateJWTToken(user model.Users) (string, error) {
-	claims := jwt.MapClaims{
-		"userID":   user.UserID,
-		"username": user.Username,
-		"exp":      time.Now().Add(24 * time.Hour).Unix(),
-		"iat":      time.Now().Unix(),
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(jwtKey)
-}
 
 func Login(c *gin.Context) {
 	db := db.GetDB()
@@ -53,7 +38,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	tokenString, err := GenerateJWTToken(user)
+	tokenString, err := myjwt.GenerateJWTToken(user)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create token"})
 		return
@@ -74,7 +59,7 @@ func Authenticate() gin.HandlerFunc {
 
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 		token, err := jwt.Parse(tokenString, func(t *jwt.Token) (any, error) {
-			return jwtKey, nil
+			return myjwt.JwtKey, nil
 		})
 
 		if err != nil || !token.Valid {

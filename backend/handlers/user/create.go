@@ -8,6 +8,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/yihao03/Aistronaut/m/v2/db"
 	model "github.com/yihao03/Aistronaut/m/v2/models"
+	"github.com/yihao03/Aistronaut/m/v2/myjwt"
 	"github.com/yihao03/Aistronaut/m/v2/params/userparams"
 	"github.com/yihao03/Aistronaut/m/v2/view/userview"
 	"golang.org/x/crypto/bcrypt"
@@ -54,7 +55,7 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	jwtToken, err := GenerateJWTToken(user)
+	jwtToken, err := myjwt.GenerateJWTToken(user)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create token"})
 		return
