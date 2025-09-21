@@ -5,4 +5,5 @@ type ChatResponse struct {
 	Content        string `json:"content"`
 	Object         string `json:"object"`
 	CreatedAt      string `json:"created_at"`
+	IsUser         bool   `json:"is_user"`
 }

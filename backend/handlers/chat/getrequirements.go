@@ -42,7 +42,7 @@ type LambdaResponse struct {
 	StatusCode int               `json:"statusCode"`
 }
 
-func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams) error {
+func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams) (*FinalResponse, error) {
 	lambdaClient := lda.GetLambda()
 	db := db.GetDB()
 
@@ -51,7 +51,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 
 	jsonString, err := json.Marshal(trip)
 	if err != nil {
-		return fmt.Errorf("failed to marshal trip: %v", err)
+		return nil, fmt.Errorf("failed to marshal trip: %v", err)
 	}
 
 	payload := LambdaPayload{
@@ -68,7 +68,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 
 	marshaledPayload, err := json.Marshal(request)
 	if err != nil {
-		return fmt.Errorf("failed to marshal payload: %v", err)
+		return nil, fmt.Errorf("failed to marshal payload: %v", err)
 	}
 
 	output, err := lambdaClient.Invoke(c.Request.Context(), &lambda.InvokeInput{
@@ -76,7 +76,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 		Payload:      marshaledPayload,
 	})
 	if err != nil {
-		return fmt.Errorf("failed to invoke Lambda function: %v", err)
+		return nil, fmt.Errorf("failed to invoke Lambda function: %v", err)
 	}
 
 	fmt.Println("Lambda output:", string(output.Payload))
@@ -84,13 +84,13 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 	// Parse the Lambda response
 	var lambdaResp LambdaResponse
 	if err := json.Unmarshal(output.Payload, &lambdaResp); err != nil {
-		return fmt.Errorf("failed to parse Lambda response: %v", err)
+		return nil, fmt.Errorf("failed to parse Lambda response: %v", err)
 	}
 
 	// Parse the body JSON string
 	var bodyResp BodyResponse
 	if err := json.Unmarshal([]byte(lambdaResp.Body), &bodyResp); err != nil {
-		return fmt.Errorf("failed to parse body: %v", err)
+		return nil, fmt.Errorf("failed to parse body: %v", err)
 	}
 
 	// Parse the inner response JSON string
@@ -98,7 +98,7 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 	responseStr := strings.TrimPrefix(bodyResp.Response, "```json\n")
 	responseStr = strings.TrimSuffix(responseStr, "\n```")
 	if err := json.Unmarshal([]byte(responseStr), &finalResp); err != nil {
-		return fmt.Errorf("failed to parse inner response: %v", err)
+		return nil, fmt.Errorf("failed to parse inner response: %v", err)
 	}
 
 	// Get settable reflect.Value for the trip pointer
@@ -126,10 +126,10 @@ func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreatePa
 			// Update this specific field in the database
 			fieldName := sourceFieldType.Name
 			if err := db.Model(trip).Update(fieldName, sourceField.Interface()).Error; err != nil {
-				return fmt.Errorf("failed to update field %s: %v", fieldName, err)
+				return nil, fmt.Errorf("failed to update field %s: %v", fieldName, err)
 			}
 		}
 	}
 
-	return nil
+	return &finalResp, nil
 }
