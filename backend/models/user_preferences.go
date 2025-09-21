@@ -13,6 +13,6 @@ type UserPreferences struct {
 	BudgetRangeMax             int
 	PreferredAccommodationType string
 	TravelStyle                string
-	CreatedAt                  ISO3339Time
-	UpdatedAt                  ISO3339Time
+	CreatedAt                  RFC3339Time
+	UpdatedAt                  RFC3339Time
 }

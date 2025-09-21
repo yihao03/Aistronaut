@@ -7,11 +7,11 @@ import (
 	"time"
 )
 
-type ISO3339Time time.Time
+type RFC3339Time time.Time
 
-func (t *ISO3339Time) Scan(value interface{}) error {
+func (t *RFC3339Time) Scan(value any) error {
 	if value == nil {
-		*t = ISO3339Time(time.Time{})
+		*t = RFC3339Time(time.Time{})
 		return nil
 	}
 
@@ -21,30 +21,30 @@ func (t *ISO3339Time) Scan(value interface{}) error {
 		if err != nil {
 			return err
 		}
-		*t = ISO3339Time(parsed)
+		*t = RFC3339Time(parsed)
 	case []byte:
 		parsed, err := time.Parse(time.RFC3339, string(v))
 		if err != nil {
 			return err
 		}
-		*t = ISO3339Time(parsed)
+		*t = RFC3339Time(parsed)
 	case time.Time:
-		*t = ISO3339Time(v)
+		*t = RFC3339Time(v)
 	default:
 		return errors.New("cannot scan non-string, []byte, or time.Time into ISO3339Time")
 	}
 	return nil
 }
 
-func (t ISO3339Time) Value() (driver.Value, error) {
+func (t RFC3339Time) Value() (driver.Value, error) {
 	return time.Time(t).Format(time.RFC3339), nil
 }
 
-func (t ISO3339Time) MarshalJSON() ([]byte, error) {
+func (t RFC3339Time) MarshalJSON() ([]byte, error) {
 	return json.Marshal(time.Time(t).Format(time.RFC3339))
 }
 
-func (t *ISO3339Time) UnmarshalJSON(data []byte) error {
+func (t *RFC3339Time) UnmarshalJSON(data []byte) error {
 	var s string
 	if err := json.Unmarshal(data, &s); err != nil {
 		return err
@@ -53,11 +53,19 @@ func (t *ISO3339Time) UnmarshalJSON(data []byte) error {
 	if err != nil {
 		return err
 	}
-	*t = ISO3339Time(parsed)
+	*t = RFC3339Time(parsed)
 	return nil
 }
 
 // Implement other interfaces if needed, e.g., for GORM hooks
-func (t ISO3339Time) IsZero() bool {
+func (t RFC3339Time) IsZero() bool {
 	return time.Time(t).IsZero()
+}
+
+func (t RFC3339Time) ToString() string {
+	return time.Time(t).Format(time.RFC3339)
+}
+
+func Now() RFC3339Time {
+	return RFC3339Time(time.Now())
 }

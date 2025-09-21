@@ -2,7 +2,6 @@ package chatparams
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/yihao03/Aistronaut/m/v2/models"
@@ -28,6 +27,6 @@ func (p CreateParams) ToModel(userID string, object any) *models.ChatHistory {
 		ChatID:        string(p.ConversationID),
 		Message:       p.Content,
 		JSONObject:    string(objectString),
-		Timestamp:     time.Now().Format(time.RFC3339),
+		Timestamp:     models.Now(),
 	}
 }

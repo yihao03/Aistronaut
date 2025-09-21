@@ -8,10 +8,10 @@ type Users struct {
 	FirstName   string `gorm:"size:100"`
 	LastName    string `gorm:"size:100"`
 	PhoneNumber string `gorm:"size:20"`
-	DateOfBirth ISO3339Time
+	DateOfBirth RFC3339Time
 	PassportNum string      `gorm:"size:50;unique"`
 	Nationality string      `gorm:"size:100"`
-	CreatedAt   ISO3339Time `gorm:"autoCreateTime;primaryKey"`
-	UpdatedAt   ISO3339Time `gorm:"autoUpdateTime"`
-	DeletedAt   ISO3339Time `gorm:"index"`
+	CreatedAt   RFC3339Time `gorm:"autoCreateTime;primaryKey"`
+	UpdatedAt   RFC3339Time `gorm:"autoUpdateTime"`
+	DeletedAt   RFC3339Time `gorm:"index"`
 }

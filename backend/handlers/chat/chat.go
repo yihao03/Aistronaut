@@ -2,7 +2,6 @@ package chat
 
 import (
 	"encoding/json"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -56,7 +55,7 @@ func ChatHandler(c *gin.Context) {
 	}
 
 	res := string(resJSON)
-	currTime := time.Now().Format(time.RFC3339)
+	currTime := models.Now()
 
 	resMsg := models.ChatHistory{
 		ChatHistoryID: model.ChatHistoryID,
@@ -76,7 +75,7 @@ func ChatHandler(c *gin.Context) {
 		ConversationID: body.ConversationID,
 		Content:        retRes.Response,
 		Object:         res,
-		CreatedAt:      currTime,
+		CreatedAt:      currTime.ToString(),
 		IsUser:         false,
 	}
 
