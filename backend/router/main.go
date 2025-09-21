@@ -28,6 +28,12 @@ func Setup(r *gin.Engine) {
 	chatGroup := r.Group("/chat")
 	SetupChatRoutes(chatGroup)
 
+	flightGroup := r.Group("/flights")
+	SetupFlightRoutes(flightGroup)
+
+	accommodationGroup := r.Group("/accommodations")
+	SetupAccommodationRoutes(accommodationGroup)
+
 	protected := r.Group("/").Use(user.Authenticate())
 	protected.GET("/hi", func(c *gin.Context) {
 		fmt.Println("hello")

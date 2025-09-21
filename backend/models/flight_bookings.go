@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 type FlightBookings struct {
 	BookingID           string `gorm:"primaryKey"`
 	UserID              string `gorm:"index"`
@@ -17,8 +15,8 @@ type FlightBookings struct {
 	SpecialRequests     string
 	MealPreference      string
 	CheckedBaggageCount int
-	TravelDate          time.Time
+	TravelDate          RFC3339Time
 	CancellationPolicy  *string
-	CreatedAt           time.Time `gorm:"autoCreateTime;index;primaryKey"`
-	UpdatedAt           time.Time `gorm:"autoUpdateTime"`
+	CreatedAt           RFC3339Time `gorm:"autoCreateTime;index;primaryKey"`
+	UpdatedAt           RFC3339Time `gorm:"autoUpdateTime"`
 }

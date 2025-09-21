@@ -1,15 +1,13 @@
 package models
 
-import "time"
-
 type Flights struct {
 	FlightID          string `gorm:"primaryKey"`
 	FlightNumber      string
 	Airline           string
 	DepartureAirport  string
 	ArrivalAirport    string
-	DepartureTime     time.Time `gorm:"primaryKey"`
-	ArrivalTime       time.Time
+	DepartureTime     RFC3339Time `gorm:"primaryKey"`
+	ArrivalTime       RFC3339Time
 	DurationMinutes   int
 	AvailableSeats    int
 	SeatConfiguration string
@@ -20,6 +18,6 @@ type Flights struct {
 	BaggageAllowance  string
 	Layovers          string
 	Status            string
-	CreatedAt         time.Time `gorm:"autoCreateTime"`
-	UpdatedAt         time.Time `gorm:"autoUpdateTime"`
+	CreatedAt         RFC3339Time `gorm:"autoCreateTime"`
+	UpdatedAt         RFC3339Time `gorm:"autoUpdateTime"`
 }
