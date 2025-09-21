@@ -2,6 +2,7 @@ package chat
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -50,7 +51,8 @@ func ChatHandler(c *gin.Context) {
 			c.JSON(500, gin.H{"error": "Failed to get requirements: " + err.Error()})
 			return
 		}
-	case HasFlightDetails(&trip):
+	case true:
+		fmt.Println("Getting flight details...")
 		// Get flights based on trip dates (assuming trip has DepartureDate and ReturnDate fields)
 		flights, err := flights.GetFlightsByDateRange(trip.StartDate, trip.EndDate)
 		if err != nil {
@@ -59,6 +61,10 @@ func ChatHandler(c *gin.Context) {
 		}
 
 		retRes, err = getFlight(c, &trip, body, &chatHistories, &flights)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "Failed to get flight response: " + err.Error()})
+			return
+		}
 	}
 
 	if retRes == nil {
@@ -72,11 +78,12 @@ func ChatHandler(c *gin.Context) {
 		return
 	}
 
-	flightJSON, err := json.Marshal(retRes.FlightDetails)
+	flightJSON, err := json.Marshal(retRes.TripOptions)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to marshal response: " + err.Error()})
 		return
 	}
+	fmt.Println("Flight JSON:", string(flightJSON))
 
 	accomJSON, err := json.Marshal(retRes.AccomodationDetails)
 	if err != nil {

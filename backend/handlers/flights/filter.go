@@ -10,9 +10,9 @@ import (
 
 // GetFlightsByDateRange retrieves flights within a specified date range
 func GetFlightsByDateRange(startDate, endDate string) ([]models.Flights, error) {
-	st, err := time.Parse("2006-01-02", startDate)
+	st, err := time.Parse(time.RFC3339, startDate)
 	if err != nil {
-		return nil, fmt.Errorf("invalid date format: %v", err)
+		return nil, fmt.Errorf(time.RFC3339, err)
 	}
 	et, err := time.Parse("2006-01-02", endDate)
 	if err != nil {

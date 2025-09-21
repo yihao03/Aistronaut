@@ -35,13 +35,13 @@ func GetAccomodations(c *gin.Context,
 	}
 
 	payload := LambdaPayload{
-		UserPrompt:          chat.Content,
-		FirstName:           user.Username,
-		Today:               time.Now().Format("Monday, January 2, 2006"),
-		UserCountry:         user.Nationality,
-		ExistingContext:     string(tripString),
-		ChatHistory:         models.ChatHistories(*chatHistories).ToString(),
-		AccomodationOptions: string(flightString),
+		UserPrompt:           chat.Content,
+		FirstName:            user.Username,
+		Today:                time.Now().Format("Monday, January 2, 2006"),
+		UserCountry:          user.Nationality,
+		ExistingContext:      string(tripString),
+		ChatHistory:          models.ChatHistories(*chatHistories).ToString(),
+		AccommodationOptions: string(flightString),
 	}
 
 	request := LambdaRequest{

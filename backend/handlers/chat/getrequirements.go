@@ -15,14 +15,18 @@ import (
 )
 
 type LambdaPayload struct {
-	UserPrompt          string `json:"user_prompt"`
-	FirstName           string `json:"first_name"`
-	Today               string `json:"today"`
-	UserCountry         string `json:"user_country"`
-	ExistingContext     string `json:"existing_context"`
-	ChatHistory         string `json:"chat_history"`
-	FlightOptions       string `json:"flight_options,omitempty"`
-	AccomodationOptions string `json:"accomodation_options,omitempty"`
+	UserPrompt           string `json:"user_prompt"`
+	FirstName            string `json:"first_name"`
+	Today                string `json:"today"`
+	UserCountry          string `json:"user_country"`
+	ExistingContext      string `json:"existing_context"`
+	ChatHistory          string `json:"chat_history"`
+	FlightOptions        string `json:"flight_options,omitempty"`
+	AccommodationOptions string `json:"accomodation_options,omitempty"`
+	Mode                 string `json:"mode,omitempty"`
+	TripPreferences      string `json:"preferences,omitempty"`
+	FlightDetails        string `json:"flight_details,omitempty"`
+	SelectedFlight       string `json:"selected_flight,omitempty"`
 }
 
 type LambdaRequest struct {
@@ -30,7 +34,7 @@ type LambdaRequest struct {
 }
 
 type FinalResponse struct {
-	FlightDetails       models.FlightBookings        `json:"flight_details"`
+	TripOptions         []models.TripPlans           `json:"trip_options"`
 	TripDetails         models.Trip                  `json:"trip_details"`
 	AccomodationDetails models.AccommodationBookings `json:"accomodation_details"`
 	Response            string                       `json:"response"`

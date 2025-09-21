@@ -30,7 +30,7 @@ func HasFlightDetails(trip *models.Trip) bool {
 	db := db.GetDB()
 
 	booking := models.FlightBookings{}
-	if err := db.Find(booking, "trip_id = ?", trip.TripID).Error; err != nil {
+	if err := db.Find(&booking, "trip_id = ?", trip.TripID).Error; err != nil {
 		return false
 	}
 
