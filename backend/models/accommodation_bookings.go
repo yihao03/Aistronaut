@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 type AccommodationBookings struct {
 	BookingID            string `gorm:"primaryKey"`
 	UserID               string `gorm:"index"`
@@ -22,6 +20,6 @@ type AccommodationBookings struct {
 	SpecialRequests      *string
 	GuestDetails         string
 	CancellationDeadline string
-	CreatedAt            time.Time `gorm:"index;primaryKey"`
-	UpdatedAt            time.Time `gorm:"autoUpdateTime"`
+	CreatedAt            RFC3339Time `gorm:"index;primaryKey"`
+	UpdatedAt            RFC3339Time `gorm:"autoUpdateTime"`
 }
