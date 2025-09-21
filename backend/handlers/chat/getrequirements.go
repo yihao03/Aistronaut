@@ -15,13 +15,14 @@ import (
 )
 
 type LambdaPayload struct {
-	UserPrompt      string `json:"user_prompt"`
-	FirstName       string `json:"first_name"`
-	Today           string `json:"today"`
-	UserCountry     string `json:"user_country"`
-	ExistingContext string `json:"existing_context"`
-	ChatHistory     string `json:"chat_history"`
-	FlightOptions   string `json:"flight_options,omitempty"`
+	UserPrompt          string `json:"user_prompt"`
+	FirstName           string `json:"first_name"`
+	Today               string `json:"today"`
+	UserCountry         string `json:"user_country"`
+	ExistingContext     string `json:"existing_context"`
+	ChatHistory         string `json:"chat_history"`
+	FlightOptions       string `json:"flight_options,omitempty"`
+	AccomodationOptions string `json:"accomodation_options,omitempty"`
 }
 
 type LambdaRequest struct {

@@ -26,7 +26,7 @@ func (p CreateParams) ToModel(userID string, object any) *models.ChatHistory {
 		UserID:        userID,
 		ChatID:        uuid.New().String(),
 		Message:       p.Content,
-		JSONObject:    string(objectString),
+		ReqObject:     string(objectString),
 		Timestamp:     models.Now(),
 	}
 }
