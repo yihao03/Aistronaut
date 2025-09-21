@@ -12,7 +12,7 @@ func CheckDetailsComplete(trip *models.Trip) bool {
 	done := true
 	for i := 0; i < v.NumField(); i++ {
 		fieldName := v.Type().Field(i).Name
-		if fieldName == "TripID" || fieldName == "UserID" {
+		if fieldName == "TripID" || fieldName == "UserID" || fieldName == "ChildrenCount" || fieldName == "InfantsCount" {
 			continue
 		}
 		if v.Field(i).IsZero() {
