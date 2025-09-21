@@ -51,7 +51,7 @@ func ChatHandler(c *gin.Context) {
 			c.JSON(500, gin.H{"error": "Failed to get requirements: " + err.Error()})
 			return
 		}
-	case true:
+	case !HasFlightDetails(&trip):
 		fmt.Println("Getting flight details...")
 		// Get flights based on trip dates (assuming trip has DepartureDate and ReturnDate fields)
 		flights, err := flights.GetFlightsByDateRange(trip.StartDate, trip.EndDate)
