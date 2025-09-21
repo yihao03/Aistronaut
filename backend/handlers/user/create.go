@@ -37,7 +37,7 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	user := model.User{
+	user := model.Users{
 		Username: body.Username,
 		Email:    body.Email,
 		Password: string(hashedPassword),
