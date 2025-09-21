@@ -3,6 +3,7 @@ package chat
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/gin-gonic/gin"
@@ -103,10 +104,11 @@ func getFlight(c *gin.Context,
 		}
 
 		var selectedFlightWrapper SelectedFlightWrapper
-		if err := json.Unmarshal([]byte(respBody.SelectedFlight), &selectedFlightWrapper); err != nil {
+		trimmed := strings.TrimPrefix(respBody.SelectedFlight, "```json")
+		trimmed = strings.TrimSuffix(trimmed, "```")
+		if err := json.Unmarshal([]byte(trimmed), &selectedFlightWrapper); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal selected flight: %v", err)
 		}
-
 		marshaledFlight, err := json.Marshal(selectedFlightWrapper.SelectedFlight)
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal selected flight: %v", err)
