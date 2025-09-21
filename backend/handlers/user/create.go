@@ -5,9 +5,11 @@ import (
 	"net/mail"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/yihao03/Aistronaut/m/v2/db"
 	model "github.com/yihao03/Aistronaut/m/v2/models"
 	"github.com/yihao03/Aistronaut/m/v2/params/userparams"
+	"github.com/yihao03/Aistronaut/m/v2/view/userview"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -37,17 +39,35 @@ func Create(c *gin.Context) {
 		return
 	}
 
+	id := uuid.New().String()
+
 	user := model.Users{
+		UserID:   id,
 		Username: body.Username,
 		Email:    body.Email,
 		Password: string(hashedPassword),
 	}
 
 	result := db.Create(&user)
+	if err := result.Error; err != nil {
+		c.JSON(500, gin.H{"error": "Failed to create user: " + err.Error()})
+		return
+	}
+
+	jwtToken, err := GenerateJWTToken(user)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to create token"})
+		return
+	}
+
+	view := userview.CreateUserResponse{
+		Token:  jwtToken,
+		UserID: id,
+	}
 
 	if result.Error != nil {
 		c.JSON(500, gin.H{"error": result.Error})
 	} else {
-		c.JSON(200, gin.H{"message": "User created successfully"})
+		c.JSON(200, view)
 	}
 }

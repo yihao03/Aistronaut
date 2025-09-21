@@ -15,6 +15,19 @@ import (
 
 var jwtKey = []byte("CHEN_YI_IS_GAY")
 
+// GenerateJWTToken creates a JWT token for the given user
+func GenerateJWTToken(user model.Users) (string, error) {
+	claims := jwt.MapClaims{
+		"userID":   user.UserID,
+		"username": user.Username,
+		"exp":      time.Now().Add(24 * time.Hour).Unix(),
+		"iat":      time.Now().Unix(),
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(jwtKey)
+}
+
 func Login(c *gin.Context) {
 	db := db.GetDB()
 
@@ -40,16 +53,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	claims := jwt.MapClaims{
-		"userID":   user.UserID,
-		"username": user.Username,
-		"exp":      time.Now().Add(24 * time.Hour).Unix(),
-		"iat":      time.Now().Unix(),
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	tokenString, err := token.SignedString(jwtKey)
+	tokenString, err := GenerateJWTToken(user)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create token"})
 		return
