@@ -66,10 +66,10 @@ aws dynamodb create-table ^
     --attribute-definitions ^
         AttributeName=booking_id,AttributeType=S ^
         AttributeName=user_id,AttributeType=S ^
-        AttributeName=booking_date,AttributeType=S ^
+        AttributeName=created_at,AttributeType=S ^
     --key-schema ^
         AttributeName=booking_id,KeyType=HASH ^
-        AttributeName=booking_date,KeyType=RANGE ^
+        AttributeName=created_at,KeyType=RANGE ^
     --global-secondary-indexes ^
         IndexName=user_id-index,KeySchema=[{AttributeName=user_id,KeyType=HASH}],Projection={ProjectionType=ALL} ^
     --billing-mode PAY_PER_REQUEST
@@ -108,10 +108,10 @@ aws dynamodb create-table ^
     --attribute-definitions ^
         AttributeName=booking_id,AttributeType=S ^
         AttributeName=user_id,AttributeType=S ^
-        AttributeName=booking_date,AttributeType=S ^
+        AttributeName=created_at,AttributeType=S ^
     --key-schema ^
         AttributeName=booking_id,KeyType=HASH ^
-        AttributeName=booking_date,KeyType=RANGE ^
+        AttributeName=created_at,KeyType=RANGE ^
     --global-secondary-indexes ^
         IndexName=user_id-index,KeySchema=[{AttributeName=user_id,KeyType=HASH}],Projection={ProjectionType=ALL} ^
     --billing-mode PAY_PER_REQUEST

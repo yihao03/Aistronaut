@@ -1,18 +1,22 @@
 # Data Models
+PK: Parition Key
+SK: Sort Key
+FK: Foreign Key
 
 ## Table 1: users
 user_id (PK)
 username
 email
-encrypted_password
+password
 first_name
 last_name
 phone_number
 date_of_birth
 passport_number
 nationality
-created_at
+created_at (SK)
 updated_at
+deleted_at
 
 ## Table 2: user_preferences
 preference_id (PK)
@@ -27,7 +31,7 @@ budget_range_min
 budget_range_max
 preferred_accommodation_type
 travel_style
-created_at
+created_at (SK)
 updated_at
 
 ## Table 3: chat_history
@@ -37,7 +41,7 @@ chat_id
 user_or_agent
 message
 json_object
-timestamp
+timestamp (SK)
 
 ## Table 4: flights
 flight_id (PK)
@@ -46,7 +50,7 @@ airline
 aircraft_type
 departure_airport
 arrival_airport
-departure_time
+departure_time (SK)
 arrival_time
 duration_minutes
 available_seats
@@ -76,10 +80,9 @@ booking_reference
 special_requests
 meal_preference
 checked_baggage_count
-booking_date
 travel_date
 cancellation_policy
-created_at
+created_at (SK)
 updated_at
 
 ## Table 6: trips
@@ -89,7 +92,7 @@ trip_name
 destination_country
 destination_cities
 landmarks
-start_date
+start_date (SK)
 end_date
 total_budget
 trip_status
@@ -134,7 +137,7 @@ contact_phone
 contact_email
 images (JSON)
 description
-created_at
+created_at (SK)
 updated_at
 
 ## Table 8: accommodation_bookings
@@ -157,6 +160,5 @@ booking_reference
 special_requests
 guest_details (JSON)
 cancellation_deadline
-booking_date
-created_at
+created_at (SK)
 updated_at
