@@ -4,13 +4,23 @@ import (
 	"encoding/json"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/gin-gonic/gin"
 	"github.com/yihao03/Aistronaut/m/v2/db"
 	"github.com/yihao03/Aistronaut/m/v2/lda"
 	"github.com/yihao03/Aistronaut/m/v2/models"
+	"github.com/yihao03/Aistronaut/m/v2/params/chatparams"
 )
+
+type LambdaPayload struct {
+	Text            string `json:"text"`
+	FirstName       string `json:"firstName"`
+	Today           string `json:"today"`
+	UserCountry     string `json:"user_country"`
+	ExistingContext string `json:"existing_context"`
+}
 
 type FinalResponse struct {
 	TripDetails models.Trip `json:"trip_details"`
@@ -27,13 +37,36 @@ type LambdaResponse struct {
 	StatusCode int               `json:"statusCode"`
 }
 
-func getRequirements(c *gin.Context, trip *models.Trip) {
+func getRequirements(c *gin.Context, trip *models.Trip, chat chatparams.CreateParams) {
 	lambdaClient := lda.GetLambda()
-	payload := []byte(`{"body":{"text":"i wish to visit japan.I am travelling for business.I am travelling alone","firstName":"Chen","chat_history":"None"}}`)
+	db := db.GetDB()
+
+	var user models.Users
+	db.Find(&user, "user_id = ?", trip.UserID)
+
+	jsonString, err := json.Marshal(trip)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to marshal trip: " + err.Error()})
+		return
+	}
+
+	payload := LambdaPayload{
+		Text:            chat.Content,
+		FirstName:       user.Username,
+		Today:           time.Now().Format("Monday, January 2, 2006"),
+		UserCountry:     user.Nationality,
+		ExistingContext: string(jsonString),
+	}
+
+	marshaledPayload, err := json.Marshal(payload)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to marshal payload: " + err.Error()})
+		return
+	}
 
 	output, err := lambdaClient.Invoke(c.Request.Context(), &lambda.InvokeInput{
 		FunctionName: lda.PARSER,
-		Payload:      payload,
+		Payload:      marshaledPayload,
 	})
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to invoke Lambda function: " + err.Error()})
@@ -87,11 +120,8 @@ func getRequirements(c *gin.Context, trip *models.Trip) {
 		}
 	}
 
-	db := db.GetDB()
 	if err := db.Save(trip).Error; err != nil {
 		c.JSON(500, gin.H{"error": "Failed to update trip: " + err.Error()})
 		return
 	}
-
-	c.JSON(200, gin.H{"response": finalResp})
 }

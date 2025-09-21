@@ -1,6 +1,8 @@
 package chat
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/yihao03/Aistronaut/m/v2/db"
@@ -18,8 +20,9 @@ func CreateHandler(c *gin.Context) {
 
 	db := db.GetDB()
 	newTrip := models.Trip{
-		TripID: uuid.New().String(),
-		UserID: body.UserID,
+		TripID:    uuid.New().String(),
+		UserID:    body.UserID,
+		StartDate: time.Now().Format(time.RFC3339),
 	}
 	if err := db.Create(&newTrip).Error; err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create trip: " + err.Error()})
